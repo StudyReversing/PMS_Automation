@@ -20,6 +20,15 @@ def getPatchDateByMonth(dateTime):
 
     return patchDate
 
+def readPatchListFromExcel(patchDateTime):
+    xlsPath = './' + patchDateTime.strftime('%Y_%m_%d') + '_Result.csv'
+    patchList = pd.read_csv(xlsPath, encoding = 'ANSI', names=['day', 'GUID', 'c', 'd', 'KBID', 'Des'])
+    if patchList.shape[0] < 1: # == len(patchTargetList)
+        print('패치 목록을 불러오는데 실패했습니다.')
+        sys.exit()
+    else:
+        return patchList
+
 def main():
     numberOfArgs = len(sys.argv)
     if numberOfArgs == 1:
@@ -29,5 +38,7 @@ def main():
     else:
         print('파라미터 개수를 확인해주세요.')
         sys.exit()
+
+    patchList = readPatchListFromExcel(endPeriod)
 
 main()
