@@ -39,7 +39,9 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
             elif row_datetime < startPeriod:
                 break
             else:
-                return None
+                if isinstance(patchList.KBID[i], float) and patchList.KBID[i] != 0:
+                    return None
+                
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
