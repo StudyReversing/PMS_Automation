@@ -3,6 +3,8 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import sys
 
+patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
+
 def getPatchPeriod():
     today = dt.date.today()
     beforeOneMonth = today - relativedelta(months=1)
@@ -20,6 +22,12 @@ def getPatchDateByMonth(dateTime):
         patchDate += dt.timedelta(days=1)
 
     return patchDate
+
+def isPatchExclusion(des):
+    for one in patchExclusionList:
+        if one in des:
+            return True
+    return False
 
 def readPatchListFromExcel(patchDateTime):
     xlsPath = './' + patchDateTime.strftime('%Y_%m_%d') + '_Result.csv'
@@ -40,7 +48,8 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
                 break
             else:
                 if isinstance(patchList.KBID[i], float) and patchList.KBID[i] != 0:
-                    return None
+                    if isinstance(patchList.Des[i], str) and not isPatchExclusion(patchList.Des[i]):
+                        print(patchList.Des[i])
                 
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
