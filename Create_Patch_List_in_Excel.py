@@ -1,5 +1,6 @@
 import datetime as dt
 from dateutil.relativedelta import relativedelta
+import pandas as pd
 import sys
 
 def getPatchPeriod():
@@ -28,6 +29,23 @@ def readPatchListFromExcel(patchDateTime):
         sys.exit()
     else:
         return patchList
+    
+def writePatchListToExcel(patchList, startPeriod, endPeriod):
+    for i in reversed(range(patchList.shape[0])):
+        try:
+            row_datetime = dt.datetime.strptime(patchList.day[i], '%Y-%m-%dT%H:%M:%SZ').date()
+            if row_datetime >= endPeriod:
+                continue
+            elif row_datetime < startPeriod:
+                break
+            else:
+                return None
+        except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
+            print('ValueError' ,e)
+        except TypeError as e:  # 날짜영역이 비어있는 경우
+            print('TypeError', e)
+        
+    return None
 
 def main():
     numberOfArgs = len(sys.argv)
@@ -40,5 +58,6 @@ def main():
         sys.exit()
 
     patchList = readPatchListFromExcel(endPeriod)
+    writePatchListToExcel(patchList, startPeriod, endPeriod)
 
 main()
