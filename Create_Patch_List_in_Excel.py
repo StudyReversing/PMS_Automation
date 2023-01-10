@@ -29,6 +29,13 @@ def isPatchExclusion(des):
             return True
     return False
 
+def validatePatchInfo(kbid, des):
+    if not isinstance(kbid, float) or kbid == 0:
+        return False
+    if not isinstance(des, str) or isPatchExclusion(des):
+        return False
+    return True
+
 def readPatchListFromExcel(patchDateTime):
     xlsPath = './' + patchDateTime.strftime('%Y_%m_%d') + '_Result.csv'
     patchList = pd.read_csv(xlsPath, encoding = 'ANSI', names=['day', 'GUID', 'c', 'd', 'KBID', 'Des'])
@@ -47,10 +54,8 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
             elif row_datetime < startPeriod:
                 break
             else:
-                if isinstance(patchList.KBID[i], float) and patchList.KBID[i] != 0:
-                    if isinstance(patchList.Des[i], str) and not isPatchExclusion(patchList.Des[i]):
-                        print(patchList.Des[i])
-                
+                if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
+                    None
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
