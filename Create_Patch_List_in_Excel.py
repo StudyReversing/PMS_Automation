@@ -4,6 +4,7 @@ import pandas as pd
 import sys
 
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
+officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'SharePoint']
 
 def getPatchPeriod():
     today = dt.date.today()
@@ -36,6 +37,24 @@ def validatePatchInfo(kbid, des):
         return False
     return True
 
+def createPatchRow(guid, kbid, des):
+    if '.Net' in des or '.NET' in des:
+        None
+    elif 'Azure' in des:
+        None
+    elif 'Internet' in des:
+        None
+    elif 'Windows' in des:
+        None
+    elif 'Exchange' in des:
+        None
+    elif 'PowerShell' in des:
+        None
+    elif any(one in des for one in officeList):
+        None
+    else:
+        None
+
 def readPatchListFromExcel(patchDateTime):
     xlsPath = './' + patchDateTime.strftime('%Y_%m_%d') + '_Result.csv'
     patchList = pd.read_csv(xlsPath, encoding = 'ANSI', names=['day', 'GUID', 'c', 'd', 'KBID', 'Des'])
@@ -55,7 +74,7 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
                 break
             else:
                 if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
-                    None
+                    createPatchRow(patchList.GUID[i], patchList.KBID[i], patchList.Des[i])
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
