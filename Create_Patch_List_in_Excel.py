@@ -56,10 +56,7 @@ def getPatchDateByMonth(dateTime):
     return patchDate
 
 def isPatchExclusion(des):
-    for one in patchExclusionList:
-        if one in des:
-            return True
-    return False
+    return any(one in des for one in patchExclusionList)
 
 def validatePatchInfo(kbid, des):
     if not isinstance(kbid, float) or kbid == 0:
