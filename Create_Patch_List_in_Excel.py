@@ -2,9 +2,40 @@ import datetime as dt
 from dateutil.relativedelta import relativedelta
 import pandas as pd
 import sys
+import re
 
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'SharePoint']
+
+totalRegexDic = {
+    'windows' : {
+        'cumulative' : [
+            {
+                'regex' : 'x86 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
+                'excel' : '	Q#kbid# 10_1507	#guid#	#kbid#	0	W10		#df1#	#df2#, Windows 10 #version# 누적 업데이트	http://support.microsoft.com/kb/#kbid#	0	0	Microsoft			1	Windows10.0-#version#-KB#kbid#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+                'replaceList' : [
+                    {
+                        'match' : '#version#',
+                        'findStr' : 'Version ',
+                        'offset' : 8,
+                        'length' : 4
+                    }
+                ]
+            }
+        ],
+        'security' : [
+            
+        ]
+    }
+}
+
+totalRowDic = {
+    'windows' : {
+        'cumulative' : [],
+        'security' : []
+    }
+}
+undecidedList = []
 
 def getPatchPeriod():
     today = dt.date.today()
@@ -37,7 +68,26 @@ def validatePatchInfo(kbid, des):
         return False
     return True
 
-def createPatchRow(guid, kbid, des):
+def addPatchRow(depth1, guid, kbid, des, endPeriod):
+    regexDic = totalRegexDic[depth1]
+    for dicKey in regexDic:
+        for atomDic in regexDic[dicKey]:
+            regexPattern = re.compile(atomDic['regex'])
+            result = regexPattern.search(des)
+            if result:
+                print('Match found : ', result.group())
+                excelStr = atomDic['excel']
+                excelStr = excelStr.replace('#kbid#', kbid).replace('#guid#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+                for one in atomDic['replaceList']:
+                    findIndex = des.find(one['findStr'])
+                    offset = one['offset']
+                    replaceStr = des[findIndex+offset:findIndex+offset+one['length']]
+                    excelStr = excelStr.replace(one['match'], replaceStr)
+                totalRowDic[depth1][dicKey].append(excelStr)
+                return
+    undecidedList.append([guid, kbid, des])
+
+def createPatchRows(guid, kbid, des, endPeriod):
     if '.Net' in des or '.NET' in des:
         None
     elif 'Azure' in des:
@@ -45,7 +95,7 @@ def createPatchRow(guid, kbid, des):
     elif 'Internet' in des:
         None
     elif 'Windows' in des:
-        None
+        addPatchRow('windows', guid, kbid, des, endPeriod)
     elif 'Exchange' in des:
         None
     elif 'PowerShell' in des:
@@ -74,7 +124,7 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
                 break
             else:
                 if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
-                    createPatchRow(patchList.GUID[i], patchList.KBID[i], patchList.Des[i])
+                    createPatchRows(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i], endPeriod)
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
