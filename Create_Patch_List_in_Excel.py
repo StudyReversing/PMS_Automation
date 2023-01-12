@@ -129,7 +129,7 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
             print('TypeError', e)
-        
+
     return None
 
 def main():
@@ -137,7 +137,7 @@ def main():
     if numberOfArgs == 1:
         startPeriod, endPeriod = getPatchPeriod()
     elif numberOfArgs == 3:
-        startPeriod, endPeriod = sys.argv[1], sys.argv[2]
+        startPeriod, endPeriod = dt.datetime.strptime(sys.argv[1], '%Y%m%d').date(), dt.datetime.strptime(sys.argv[2], '%Y%m%d').date()
     else:
         print('파라미터 개수를 확인해주세요.')
         sys.exit()
