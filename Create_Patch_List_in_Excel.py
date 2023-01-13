@@ -16,9 +16,9 @@ totalRegexDic = {
                 'replaceList' : [
                     {
                         'match' : '#version#',
-                        'findStr' : 'Version ',
+                        'startIndex' : 'Version ',
                         'offset' : 8,
-                        'length' : 4
+                        'endIndex' : '에 대한'
                     }
                 ]
             }
@@ -76,9 +76,9 @@ def addPatchRow(depth1, guid, kbid, des, endPeriod):
                 excelStr = atomDic['excel']
                 excelStr = excelStr.replace('#kbid#', kbid).replace('#guid#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
                 for one in atomDic['replaceList']:
-                    findIndex = des.find(one['findStr'])
-                    offset = one['offset']
-                    replaceStr = des[findIndex+offset:findIndex+offset+one['length']]
+                    startIndex = des.find(one['startIndex']) + one['offset']
+                    endIndex = des.find(one['endIndex'])
+                    replaceStr = des[startIndex:endIndex]
                     excelStr = excelStr.replace(one['match'], replaceStr)
                 totalRowDic[depth1][dicKey].append(excelStr)
                 return
