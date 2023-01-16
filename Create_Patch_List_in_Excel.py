@@ -33,12 +33,16 @@ totalRowDic = {
 }
 undecidedList = []
 
+startPeriod = None
+endPeriod = None
+
 def getPatchPeriod():
+    global startPeriod
+    global endPeriod
     today = dt.date.today()
     beforeOneMonth = today - relativedelta(months=1)
     startPeriod = getPatchDateByMonth(beforeOneMonth)
     endPeriod = getPatchDateByMonth(today)
-    return startPeriod, endPeriod
 
 def getPatchDateByMonth(dateTime):
     patchDate = dateTime.replace(day=1)
@@ -61,7 +65,8 @@ def validatePatchInfo(kbid, des):
         return False
     return True
 
-def addPatchRow(Classification, guid, kbid, des, endPeriod):
+def addPatchRow(Classification, guid, kbid, des):
+    global endPeriod
     regexList = totalRegexDic[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
@@ -78,7 +83,7 @@ def addPatchRow(Classification, guid, kbid, des, endPeriod):
             return
     undecidedList.append([guid, kbid, des])
 
-def createPatchRows(guid, kbid, des, endPeriod):
+def createPatchRows(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         None
     elif 'Azure' in des:
@@ -86,7 +91,7 @@ def createPatchRows(guid, kbid, des, endPeriod):
     elif 'Internet' in des:
         None
     elif 'Windows' in des:
-        addPatchRow('windows', guid, kbid, des, endPeriod)
+        addPatchRow('windows', guid, kbid, des)
     elif 'Exchange' in des:
         None
     elif 'PowerShell' in des:
@@ -96,8 +101,9 @@ def createPatchRows(guid, kbid, des, endPeriod):
     else:
         None
 
-def readPatchListFromExcel(patchDateTime):
-    xlsPath = './' + patchDateTime.strftime('%Y_%m_%d') + '_Result.csv'
+def readPatchListFromExcel():
+    global endPeriod
+    xlsPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Result.csv'
     patchList = pd.read_csv(xlsPath, encoding = 'ANSI', names=['day', 'GUID', 'c', 'd', 'KBID', 'Des'])
     if patchList.shape[0] < 1: # == len(patchTargetList)
         print('패치 목록을 불러오는데 실패했습니다.')
@@ -105,7 +111,9 @@ def readPatchListFromExcel(patchDateTime):
     else:
         return patchList
     
-def writePatchListToExcel(patchList, startPeriod, endPeriod):
+def writePatchListToExcel(patchList):
+    global startPeriod
+    global endPeriod
     for i in reversed(range(patchList.shape[0])):
         try:
             row_datetime = dt.datetime.strptime(patchList.day[i], '%Y-%m-%dT%H:%M:%SZ').date()
@@ -115,7 +123,7 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
                 break
             else:
                 if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
-                    createPatchRows(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i], endPeriod)
+                    createPatchRows(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
@@ -124,16 +132,18 @@ def writePatchListToExcel(patchList, startPeriod, endPeriod):
     return None
 
 def main():
+    global startPeriod
+    global endPeriod
     numberOfArgs = len(sys.argv)
     if numberOfArgs == 1:
-        startPeriod, endPeriod = getPatchPeriod()
+        getPatchPeriod()
     elif numberOfArgs == 3:
         startPeriod, endPeriod = dt.datetime.strptime(sys.argv[1], '%Y%m%d').date(), dt.datetime.strptime(sys.argv[2], '%Y%m%d').date()
     else:
         print('파라미터 개수를 확인해주세요.')
         sys.exit()
 
-    patchList = readPatchListFromExcel(endPeriod)
-    writePatchListToExcel(patchList, startPeriod, endPeriod)
+    patchList = readPatchListFromExcel()
+    writePatchListToExcel(patchList)
 
 main()
