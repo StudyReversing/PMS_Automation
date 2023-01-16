@@ -8,31 +8,27 @@ patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'SharePoint']
 
 totalRegexDic = {
-    'windows' : {
-        'cumulative' : [
-            {
-                'regex' : 'x86 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
-                'excel' : '	Q#kbid# 10_1507	#guid#	#kbid#	0	W10		#df1#	#df2#, Windows 10 #version# 누적 업데이트	http://support.microsoft.com/kb/#kbid#	0	0	Microsoft			1	Windows10.0-#version#-KB#kbid#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
-                'replaceList' : [
-                    {
-                        'match' : '#version#',
-                        'startIndex' : 'Version ',
-                        'offset' : 8,
-                        'endIndex' : '에 대한'
-                    }
-                ]
-            }
-        ],
-        'security' : [
-            
-        ]
-    }
+    'windows' : [
+        {
+            'regex' : 'x86 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
+            'excel' : '	Q#kbid# 10_1507	#guid#	#kbid#	0	W10		#df1#	#df2#, Windows 10 #version# 누적 업데이트	http://support.microsoft.com/kb/#kbid#	0	0	Microsoft			1	Windows10.0-#version#-KB#kbid#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#version#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : '에 대한'
+                }
+            ],
+            'group' : 1
+        }
+    ]  
 }
 
 totalRowDic = {
     'windows' : {
-        'cumulative' : [],
-        'security' : []
+        1 : [],
+        2 : []
     }
 }
 undecidedList = []
@@ -65,23 +61,21 @@ def validatePatchInfo(kbid, des):
         return False
     return True
 
-def addPatchRow(depth1, guid, kbid, des, endPeriod):
-    regexDic = totalRegexDic[depth1]
-    for dicKey in regexDic:
-        for atomDic in regexDic[dicKey]:
-            regexPattern = re.compile(atomDic['regex'])
-            result = regexPattern.search(des)
-            if result:
-                print('Match found : ', result.group())
-                excelStr = atomDic['excel']
-                excelStr = excelStr.replace('#kbid#', kbid).replace('#guid#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
-                for one in atomDic['replaceList']:
-                    startIndex = des.find(one['startIndex']) + one['offset']
-                    endIndex = des.find(one['endIndex'])
-                    replaceStr = des[startIndex:endIndex]
-                    excelStr = excelStr.replace(one['match'], replaceStr)
-                totalRowDic[depth1][dicKey].append(excelStr)
-                return
+def addPatchRow(Classification, guid, kbid, des, endPeriod):
+    regexList = totalRegexDic[Classification]
+    for regexDic in regexList:
+        regexPattern = re.compile(regexDic['regex'])
+        result = regexPattern.search(des)
+        if result:
+            excelStr = regexDic['excel']
+            excelStr = excelStr.replace('#kbid#', kbid).replace('#guid#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+            for one in regexDic['replaceList']:
+                startIndex = des.find(one['startIndex']) + one['offset']
+                endIndex = des.find(one['endIndex'])
+                replaceStr = des[startIndex:endIndex]
+                excelStr = excelStr.replace(one['match'], replaceStr)
+            totalRowDic[Classification][regexDic['group']].append(excelStr)
+            return
     undecidedList.append([guid, kbid, des])
 
 def createPatchRows(guid, kbid, des, endPeriod):
