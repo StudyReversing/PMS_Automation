@@ -3,18 +3,51 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import sys
 import re
+import numpy as np
 
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'SharePoint']
 
+"""
+#v# : Version
+#ki# : KBID
+#gi# : GUID
+#s# : Severity
+"""
 totalRegexDic = {
     'windows' : [
         {
             'regex' : 'x86 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
-            'excel' : '	Q#kbid# 10_1507	#guid#	#kbid#	0	W10		#df1#	#df2#, Windows 10 #version# 누적 업데이트	http://support.microsoft.com/kb/#kbid#	0	0	Microsoft			1	Windows10.0-#version#-KB#kbid#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 10_#v#	#gi#	#ki#	0	W10		#df1#	#df2#, Windows 10 #v# 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#v#-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
             'replaceList' : [
                 {
-                    'match' : '#version#',
+                    'match' : '#v#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : '에 대한'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
+            'excel' : '	Q#ki# 10_#v#_x64	#gi#	#ki#	9	W10		#df1#	#df2#, Windows 10_x64 #v# 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#v#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#v#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : '에 대한'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 11 Version \w{4}에 대한 누적 업데이트',
+            'excel' : '	Q#ki# 11_#v#_x64	#gi#	#ki#	9	W11		#df1#	#df2#, Windows 11 #v# 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows11.0-#v#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#v#',
                     'startIndex' : 'Version ',
                     'offset' : 8,
                     'endIndex' : '에 대한'
@@ -35,6 +68,9 @@ undecidedList = []
 
 startPeriod = None
 endPeriod = None
+
+importantSet = set()
+criticalSet = set()
 
 def getPatchPeriod():
     global startPeriod
@@ -65,6 +101,36 @@ def validatePatchInfo(kbid, des):
         return False
     return True
 
+def makeSeveritySet():
+    global importantSet
+    global criticalSet
+
+    xlsPath = "./Security Updates " + endPeriod.strftime('%Y-%m-%d') + '.csv'
+
+    securityUpdates = pd.read_csv(xlsPath, encoding = 'ANSI')
+    securityUpdates = securityUpdates.rename(columns={"Max Severity":"Severity"})
+
+    for i in range(len(securityUpdates.Severity)):
+        if securityUpdates.Article[i].isdigit():
+            try:
+                if securityUpdates.Severity[i] is not None:
+                    if('Important' == securityUpdates.Severity[i]):
+                        importantSet.add(str(securityUpdates.Article[i]))
+                    elif('Critical' == securityUpdates.Severity[i]):
+                        criticalSet.add(str(securityUpdates.Article[i]))
+            except Exception as e:
+                print('Exception' ,e)
+    importantSet = importantSet.difference(criticalSet)
+
+def setSeverity(excelStr, kbid):
+    severityStr = ''
+    if kbid in criticalSet:
+        severityStr = '1'
+    elif kbid in importantSet:
+        severityStr = '0'
+    return excelStr.replace('#s#', severityStr)
+
+
 def addPatchRow(Classification, guid, kbid, des):
     global endPeriod
     regexList = totalRegexDic[Classification]
@@ -73,12 +139,16 @@ def addPatchRow(Classification, guid, kbid, des):
         result = regexPattern.search(des)
         if result:
             excelStr = regexDic['excel']
-            excelStr = excelStr.replace('#kbid#', kbid).replace('#guid#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+            # KBID, GUID, dateForm1, dateForm2 적용
+            excelStr = excelStr.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+            # 개별 변경 사항 적용
             for one in regexDic['replaceList']:
                 startIndex = des.find(one['startIndex']) + one['offset']
                 endIndex = des.find(one['endIndex'])
                 replaceStr = des[startIndex:endIndex]
                 excelStr = excelStr.replace(one['match'], replaceStr)
+            # 심각도(Severity) 적용
+            excelStr = setSeverity(excelStr, kbid)
             totalRowDic[Classification][regexDic['group']].append(excelStr)
             return
     undecidedList.append([guid, kbid, des])
@@ -142,6 +212,8 @@ def main():
     else:
         print('파라미터 개수를 확인해주세요.')
         sys.exit()
+
+    makeSeveritySet()
 
     patchList = readPatchListFromExcel()
     writePatchListToExcel(patchList)
