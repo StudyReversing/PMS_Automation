@@ -112,14 +112,12 @@ def makeSeveritySet():
 
     for i in range(len(securityUpdates.Severity)):
         if securityUpdates.Article[i].isdigit():
-            try:
-                if securityUpdates.Severity[i] is not None:
-                    if('Important' == securityUpdates.Severity[i]):
-                        importantSet.add(str(securityUpdates.Article[i]))
-                    elif('Critical' == securityUpdates.Severity[i]):
-                        criticalSet.add(str(securityUpdates.Article[i]))
-            except Exception as e:
-                print('Exception' ,e)
+            if securityUpdates.Severity[i] is not None:
+                if('Important' == securityUpdates.Severity[i]):
+                    importantSet.add(str(securityUpdates.Article[i]))
+                elif('Critical' == securityUpdates.Severity[i]):
+                    criticalSet.add(str(securityUpdates.Article[i]))
+            
     importantSet = importantSet.difference(criticalSet)
 
 def setSeverity(excelStr, kbid):
