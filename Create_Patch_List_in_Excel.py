@@ -54,6 +54,69 @@ totalRegexDic = {
                 }
             ],
             'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 11에 대한 누적 업데이트',
+            'excel' : '	Q#ki# 11_x64	#gi#	#ki#	9	W11		#df1#	#df2#, Windows 11 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows11.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'Dynamic Cumulative Update for Windows 10 Version \w{4} for x86-based Systems',
+            'excel' : '	Q#ki# 10_#v#	#gi#	#ki#	0	W10		#df1#	#df2#, Windows 10 #v# Dynamic Cumulative 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-#v#-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#v#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : ' for x86'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'Dynamic Cumulative Update for Windows 10 Version \w{4} for x64-based Systems',
+            'excel' : '	Q#ki# 10_#v#_x64	#gi#	#ki#	9	W10		#df1#	#df2#, Windows 10_x64 #v# Dynamic Cumulative 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-#v#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#v#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : ' for x64'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'Dynamic Cumulative Update for Windows 11 Version \w{4} for x64-based Systems',
+            'excel' : '	Q#ki# 11_#v#x64	#gi#	#ki#	9	W11		#df1#	#df2#, Windows 11_x64 #v# Dynamic Cumulative 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows11.0-#v#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [
+                {
+                    'match' : '#v#',
+                    'startIndex' : 'Version ',
+                    'offset' : 8,
+                    'endIndex' : ' for x64'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'Dynamic Cumulative Update for Windows 11 for x64-based Systems',
+            'excel' : '	Q#ki# 11_x64	#gi#	#ki#	9	W11		#df1#	#df2#, Windows 11_x64 Dynamic Cumulative 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows11.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2016에 대한 누적 업데이트',
+            'excel' : '	Q#ki# 216	#gi#	#ki#	9	W216		#df1#	#df2#, Windows 2016_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-1607-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2019에 대한 누적 업데이트',
+            'excel' : '	Q#ki# 219	#gi#	#ki#	9	W219		#df1#	#df2#, Windows 2019_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-1809-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
         }
     ]  
 }
