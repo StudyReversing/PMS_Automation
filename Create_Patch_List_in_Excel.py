@@ -15,7 +15,7 @@ officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'Shar
 #s# : Severity
 """
 totalRegexDic = {
-    'windows' : [
+    'windows-cumulative' : [
         {
             'regex' : 'x86 기반 시스템용 Windows 10 Version \w{4}에 대한 누적 업데이트',
             'excel' : '	Q#ki# 10_#v#	#gi#	#ki#	0	W10		#df1#	#df2#, Windows 10 #v# 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#v#-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
@@ -118,14 +118,140 @@ totalRegexDic = {
             'replaceList' : [],
             'group' : 1
         }
-    ]  
+    ],
+    'windows-security' : [
+        {
+            'regex' : 'x86 기반 시스템용 Windows Server 2008에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28		#df1#	#df2#, Windows 2008 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows Server 2008에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28		#df1#	#df2#, Windows 2008 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 7에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 7	#gi#	#ki#	0	W7		#df1#	#df2#, Windows 7 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 7에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 7	#gi#	#ki#	0	W7		#df1#	#df2#, Windows 7 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 8.1에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 81	#gi#	#ki#	0	W81		#df1#	#df2#, Windows 8.1 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 8.1에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 81_x64	#gi#	#ki#	9	W81		#df1#	#df2#, Windows 8.1_x64 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2008에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28		#df1#	#df2#, Windows 2008_x64 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2008에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28		#df1#	#df2#, Windows 2008_x64 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 7에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 7_x64	#gi#	#ki#	9	W7		#df1#	#df2#, Windows 7_x64 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 7에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 7_x64	#gi#	#ki#	9	W7		#df1#	#df2#, Windows 7_x64 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 8.1에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 81_x64	#gi#	#ki#	9	W81		#df1#	#df2#, Windows 8.1_x64 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 8.1에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 81_x64	#gi#	#ki#	9	W81		#df1#	#df2#, Windows 8.1_x64 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2008 R2에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 28R2_x64	#gi#	#ki#	9	W28R2		#df1#	#df2#, Windows 2008R2_x64 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2008 R2에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 28R2_x64	#gi#	#ki#	9	W28R2		#df1#	#df2#, Windows 2008R2_x64 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2012에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	#df2#, Windows 2012 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2012에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	#df2#, Windows 2012 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2012 R2에 대한 보안 전용 품질 업데이트',
+            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	#df2#, Windows 2012R2 보안 업데이트 - 보안 전용	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2012 R2에 대한 보안 월별 품질 롤업',
+            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	#df2#, Windows 2012R2 보안 업데이트 - 월별 롤업	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 10 Version 22H2 보안 업데이트',
+            'excel' : '	Q#ki# 10_22H2	#gi#	#ki#	0	W10		#df1#	#df2#, Windows 10 22H2 보안 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-22H2-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 2
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 10 Version 22H2 보안 업데이트',
+            'excel' : '	Q#ki# 10_22H2_x64	#gi#	#ki#	9	W10		#df1#	#df2#, Windows 10_x64 22H2 보안 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows10.0-22H2-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 2
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 11 22H2 보안 업데이트',
+            'excel' : '	Q#ki# 11_x64	#gi#	#ki#	9	W11		#df1#	#df2#, Windows 11 보안 업데이트	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	Windows11.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'replaceList' : [],
+            'group' : 2
+        }
+    ]
 }
 
 totalRowDic = {
-    'windows' : {
-        1 : [],
-        2 : []
-    }
+    'windows-cumulative' : {},
+    'windows-security' : {}
 }
 undecidedList = []
 
@@ -210,7 +336,12 @@ def addPatchRow(Classification, guid, kbid, des):
                 excelStr = excelStr.replace(one['match'], replaceStr)
             # 심각도(Severity) 적용
             excelStr = setSeverity(excelStr, kbid)
-            totalRowDic[Classification][regexDic['group']].append(excelStr)
+            # 최종행 저장
+            if regexDic['group'] in totalRowDic[Classification]:
+                totalRowDic[Classification][regexDic['group']].append(excelStr)
+            else:
+                totalRowDic[Classification][regexDic['group']] = [excelStr]
+
             return
     undecidedList.append([guid, kbid, des])
 
@@ -222,7 +353,10 @@ def createPatchRows(guid, kbid, des):
     elif 'Internet' in des:
         None
     elif 'Windows' in des:
-        addPatchRow('windows', guid, kbid, des)
+        if any(one in des for one in ['누적', 'Cumulative']):
+            addPatchRow('windows-cumulative', guid, kbid, des)
+        else:
+            addPatchRow('windows-security', guid, kbid, des)
     elif 'Exchange' in des:
         None
     elif 'PowerShell' in des:
