@@ -3,7 +3,8 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 import sys
 import re
-import numpy as np
+import requests
+from bs4 import BeautifulSoup
 
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'SharePoint']
@@ -317,6 +318,26 @@ def setSeverity(excelStr, kbid):
         severityStr = '0'
     return excelStr.replace('#s#', severityStr)
 
+def getDownloadInfo(guid):
+    url = 'https://catalog.update.microsoft.com/DownloadDialog.aspx'
+    postData = {'updateIDs': '[{"size":0,"languages":"","uidInfo":"'+guid+'","updateID":"'+guid+'"}]'}
+    try:
+        res = requests.request("POST", url, data=postData)
+        if res.status_code == 200:
+            soup = BeautifulSoup(res.text)
+            print(soup.body)
+        else:
+            None
+    except requests.exceptions.Timeout as e:
+        print("Timeout Error : ", e)
+    except requests.exceptions.ConnectionError as e:
+        print("Error Connecting : ", e)
+    except requests.exceptions.HTTPError as e:
+        print("Http Error : ", e)
+    except requests.exceptions.RequestException as e:
+        print("AnyException : ", e)
+
+    return None
 
 def addPatchRow(Classification, guid, kbid, des):
     global endPeriod
@@ -390,9 +411,9 @@ def writePatchListToExcel(patchList):
                 if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
                     createPatchRows(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
-            print('ValueError' ,e)
+            print('ValueError : ' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
-            print('TypeError', e)
+            print('TypeError : ', e)
 
     return None
 
