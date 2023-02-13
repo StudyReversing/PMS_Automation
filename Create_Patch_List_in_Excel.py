@@ -116,7 +116,7 @@ def addPatchRow(Classification, guid, kbid, des):
             excelStr = setSeverity(excelStr, kbid)
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadLinkList = getDownloadLinkList(guid)
-            excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t[' + ','.join(one for one in downloadLinkList) +']'
+            excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
             # 최종행 저장
             if regexDic['group'] in pmsd.totalRowDic[Classification]:
                 pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr)
@@ -176,6 +176,26 @@ def createPatchRows(patchList):
 
     return None
 
+def writePatchListToExcel():
+    global endPeriod
+    wb = Workbook()
+    normal_ws = wb.active
+    normal_ws.title = 'normal'
+    for dic in pmsd.totalRowDic.values():
+        for list in dic.values():
+            for one in list:
+                normal_ws.append(one.split('\t'))
+            normal_ws.append([])
+            normal_ws.append([])
+
+    exception_ws = wb.create_sheet()
+    exception_ws.title = 'exception'
+    for one in undecidedList:
+        exception_ws.append(one)
+
+    xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
+    wb.save(xlsxPath)
+
 def main():
     global startPeriod
     global endPeriod
@@ -192,5 +212,6 @@ def main():
 
     patchList = readPatchListFromExcel()
     createPatchRows(patchList)
+    writePatchListToExcel()
 
 main()
