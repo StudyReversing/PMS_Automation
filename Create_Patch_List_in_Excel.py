@@ -1,11 +1,12 @@
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 import pandas as pd
+from openpyxl import Workbook
 import sys
 import re
 import requests
 from bs4 import BeautifulSoup
-import resource as res
+import PMS_Data as pmsd
 
 undecidedList = []
 
@@ -35,7 +36,7 @@ def getPatchDateByMonth(dateTime):
     return patchDate
 
 def isPatchExclusion(des):
-    return any(one in des for one in res.patchExclusionList)
+    return any(one in des for one in pmsd.patchExclusionList)
 
 def validatePatchInfo(kbid, des):
     if not isinstance(kbid, float) or kbid == 0:
@@ -72,14 +73,16 @@ def setSeverity(excelStr, kbid):
         severityStr = '0'
     return excelStr.replace('#s#', severityStr)
 
-def getDownloadInfo(guid):
+def getDownloadLinkList(guid):
     url = 'https://catalog.update.microsoft.com/DownloadDialog.aspx'
     postData = {'updateIDs': '[{"size":0,"languages":"","uidInfo":"'+guid+'","updateID":"'+guid+'"}]'}
+    regexForDownloadInfo = "].url = '(https://.+)'"
+    result = []
     try:
         response = requests.request("POST", url, data=postData)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.text)
-            print(soup.body)
+            soup = BeautifulSoup(response.text, "html.parser")
+            result = re.findall(regexForDownloadInfo, str(soup.head))
         else:
             None
     except requests.exceptions.Timeout as e:
@@ -91,11 +94,11 @@ def getDownloadInfo(guid):
     except requests.exceptions.RequestException as e:
         print("AnyException : ", e)
 
-    return None
+    return result
 
 def addPatchRow(Classification, guid, kbid, des):
     global endPeriod
-    regexList = res.totalRegexDic[Classification]
+    regexList = pmsd.totalRegexDic[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
         result = regexPattern.search(des)
@@ -111,16 +114,18 @@ def addPatchRow(Classification, guid, kbid, des):
                 excelStr = excelStr.replace(one['match'], replaceStr)
             # 심각도(Severity) 적용
             excelStr = setSeverity(excelStr, kbid)
+            # 다운로드 링크, 다운로드 파일 수 적용
+            downloadLinkList = getDownloadLinkList(guid)
+            excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t[' + ','.join(one for one in downloadLinkList) +']'
             # 최종행 저장
-            if regexDic['group'] in res.totalRowDic[Classification]:
-                res.totalRowDic[Classification][regexDic['group']].append(excelStr)
+            if regexDic['group'] in pmsd.totalRowDic[Classification]:
+                pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr)
             else:
-                res.totalRowDic[Classification][regexDic['group']] = [excelStr]
-
+                pmsd.totalRowDic[Classification][regexDic['group']] = [excelStr]
             return
     undecidedList.append([guid, kbid, des])
 
-def createPatchRows(guid, kbid, des):
+def createPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         None
     elif 'Azure' in des:
@@ -136,7 +141,7 @@ def createPatchRows(guid, kbid, des):
         None
     elif 'PowerShell' in des:
         None
-    elif any(one in des for one in res.officeList):
+    elif any(one in des for one in pmsd.officeList):
         None
     else:
         None
@@ -151,7 +156,7 @@ def readPatchListFromExcel():
     else:
         return patchList
     
-def writePatchListToExcel(patchList):
+def createPatchRows(patchList):
     global startPeriod
     global endPeriod
     for i in reversed(range(patchList.shape[0])):
@@ -163,7 +168,7 @@ def writePatchListToExcel(patchList):
                 break
             else:
                 if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
-                    createPatchRows(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
+                    createPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError : ' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
@@ -186,6 +191,6 @@ def main():
     makeSeveritySet()
 
     patchList = readPatchListFromExcel()
-    writePatchListToExcel(patchList)
+    createPatchRows(patchList)
 
 main()
