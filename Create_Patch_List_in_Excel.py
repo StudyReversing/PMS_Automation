@@ -187,8 +187,7 @@ def createPatchRowsByType(guid, kbid, des):
     elif 'PowerShell' in des:
         None
     elif any(one in des for one in pmsd.officeList):
-        None
-        # addPatchRow('office', guid, kbid, des)
+        addPatchRow('office', guid, kbid, des)
     else:
         None
 
