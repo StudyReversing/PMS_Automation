@@ -159,10 +159,9 @@ def addPatchRow(Classification, guid, kbid, des):
             downloadLinkList = getDownloadLinkList(guid)
             excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
             # 최종행 저장
-            if regexDic['group'] in pmsd.totalRowDic[Classification]:
-                pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr)
-            else:
-                pmsd.totalRowDic[Classification][regexDic['group']] = [excelStr]
+            if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                pmsd.totalRowDic[Classification][regexDic['group']] = []
+            pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr.split('\t'))
             return
         else:
             undecidedList.append([guid, kbid, des])
@@ -227,9 +226,11 @@ def writePatchListToExcel():
     normal_ws = wb.active
     normal_ws.title = 'normal'
     for dic in pmsd.totalRowDic.values():
+        dic = dict(sorted(dic.items()))
         for list in dic.values():
+            list.sort(key=lambda x:x[8])
             for one in list:
-                normal_ws.append(one.split('\t'))
+                normal_ws.append(one)
             normal_ws.append([])
             normal_ws.append([])
 
