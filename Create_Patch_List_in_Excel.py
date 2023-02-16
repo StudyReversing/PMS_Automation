@@ -7,6 +7,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import PMS_Data as pmsd
+import time
 
 undecidedList = []
 
@@ -66,13 +67,13 @@ def makeSeveritySet():
             
     importantSet = importantSet.difference(criticalSet)
 
-def setSeverity(excelStr, kbid):
+def setSeverity(descr_kor, kbid):
     severityStr = ''
     if kbid in criticalSet:
         severityStr = '1'
     elif kbid in importantSet:
         severityStr = '0'
-    return excelStr.replace('#s#', severityStr)
+    return descr_kor.replace('#s#', severityStr)
 
 def getDownloadLinkList(guid):
     url = 'https://catalog.update.microsoft.com/DownloadDialog.aspx'
@@ -101,7 +102,7 @@ def addPatchRow(Classification, guid, kbid, des):
     global endPeriod
     regexList = pmsd.totalRegexDic[Classification]
     for regexDic in regexList:
-        regexPattern = re.compile(regexDic['regex'])
+        regexPattern = re.compile(regexDic['regex'].replace('#df0#', endPeriod.strftime('%Y-%m')))
 
         """
             정규식 패턴 매칭 방법1. search
@@ -112,27 +113,28 @@ def addPatchRow(Classification, guid, kbid, des):
         """
         # result = regexPattern.search(des)
         # if result:
-        #     excelStr = regexDic['excel']
+        #     descr_kor = regexDic['excel']
         #     # KBID, GUID, dateForm1, dateForm2 적용
-        #     excelStr = excelStr.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+        #     descr_kor = descr_kor.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
         #     # 개별 변경 사항 적용
         #     for one in regexDic['replaceList']:
         #         startIndex = des.find(one['startIndex']) + one['offset']
         #         endIndex = des.find(one['endIndex'])
         #         replaceStr = des[startIndex:endIndex]
-        #         excelStr = excelStr.replace(one['match'], replaceStr)
+        #         descr_kor = descr_kor.replace(one['match'], replaceStr)
         #     # 심각도(Severity) 적용
-        #     excelStr = setSeverity(excelStr, kbid)
+        #     descr_kor = setSeverity(descr_kor, kbid)
         #     # 다운로드 링크, 다운로드 파일 수 적용
         #     downloadLinkList = getDownloadLinkList(guid)
-        #     excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
+        #     descr_kor = descr_kor + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
         #     # 최종행 저장
         #     if regexDic['group'] in pmsd.totalRowDic[Classification]:
-        #         pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr)
+        #         pmsd.totalRowDic[Classification][regexDic['group']].append(descr_kor)
         #     else:
-        #         pmsd.totalRowDic[Classification][regexDic['group']] = [excelStr]
+        #         pmsd.totalRowDic[Classification][regexDic['group']] = [descr_kor]
         #     return
         
+
         """
             정규식 패턴 매칭 방법2. findall
             findall을 사용하면 문자열에서 정규식 패턴과 일치하는 모든 문자열을 리스트로 반환 해준다.
@@ -144,25 +146,25 @@ def addPatchRow(Classification, guid, kbid, des):
         if length == 0:
             continue
         elif length == 1:
-            excelStr = regexDic['excel']
+            descr_kor = regexDic['descr_kor']
             # KBID, GUID, dateForm1, dateForm2 적용
-            excelStr = excelStr.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
+            descr_kor = descr_kor.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y년 %m월'))
             # 개별 변경 사항 적용
             if isinstance(result[0], str):
-                excelStr = excelStr.replace('#1#', result[0])
+                descr_kor = descr_kor.replace('#1#', result[0])
             else:
                 # type(result[0]) == tuple 일 경우
                 for i in len(result[0]):
-                    excelStr = excelStr.replace('#'+(i+1)+'#', result[0][i])
+                    descr_kor = descr_kor.replace('#'+(i+1)+'#', result[0][i])
             # 심각도(Severity) 적용
-            excelStr = setSeverity(excelStr, kbid)
+            descr_kor = setSeverity(descr_kor, kbid)
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadLinkList = getDownloadLinkList(guid)
-            excelStr = excelStr + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
+            descr_kor = descr_kor + '\t' + des + '\t' + str(len(downloadLinkList)) + '\t' + ','.join(one for one in downloadLinkList)
             # 최종행 저장
             if regexDic['group'] not in pmsd.totalRowDic[Classification]:
                 pmsd.totalRowDic[Classification][regexDic['group']] = []
-            pmsd.totalRowDic[Classification][regexDic['group']].append(excelStr.split('\t'))
+            pmsd.totalRowDic[Classification][regexDic['group']].append(descr_kor.split('\t'))
             return
         else:
             undecidedList.append([guid, kbid, des])
@@ -261,4 +263,7 @@ def main():
     createPatchRows(patchList)
     writePatchListToExcel()
 
+startTime = time.time()
 main()
+endTime = time.time()
+print(f'실행시간 : {endTime-startTime:.3f} sec')
