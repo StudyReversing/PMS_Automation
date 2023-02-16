@@ -56,12 +56,13 @@ def makeSeveritySet():
     securityUpdates = securityUpdates.rename(columns={"Max Severity":"Severity"})
 
     for i in range(len(securityUpdates.Severity)):
-        if securityUpdates.Article[i].isdigit():
-            if securityUpdates.Severity[i] is not None:
-                if('Important' == securityUpdates.Severity[i]):
-                    importantSet.add(str(securityUpdates.Article[i]))
-                elif('Critical' == securityUpdates.Severity[i]):
-                    criticalSet.add(str(securityUpdates.Article[i]))
+        if not pd.isna(securityUpdates.Article[i]):
+            if securityUpdates.Article[i].isdigit():
+                if securityUpdates.Severity[i] is not None:
+                    if('Important' == securityUpdates.Severity[i]):
+                        importantSet.add(str(securityUpdates.Article[i]))
+                    elif('Critical' == securityUpdates.Severity[i]):
+                        criticalSet.add(str(securityUpdates.Article[i]))
             
     importantSet = importantSet.difference(criticalSet)
 
@@ -175,7 +176,7 @@ def createPatchRowsByType(guid, kbid, des):
     elif 'Azure' in des:
         None
     elif 'Internet' in des:
-        None
+        addPatchRow('internet', guid, kbid, des)
     elif 'Windows' in des:
         if any(one in des for one in ['누적', 'Cumulative']):
             addPatchRow('windows-cumulative', guid, kbid, des)
