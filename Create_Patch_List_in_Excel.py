@@ -166,9 +166,9 @@ def createPatchRowsByType(guid, kbid, des):
         else:
             addPatchRow('windows-security', guid, kbid, des)
     elif 'Exchange' in des:
-        None
+        addPatchRow('exchange', guid, kbid, des)
     elif 'PowerShell' in des:
-        None
+        addPatchRow('powershell', guid, kbid, des)
     elif any(one in des for one in pmsd.officeList):
         addPatchRow('office', guid, kbid, des)
     else:
