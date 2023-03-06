@@ -456,6 +456,20 @@ totalRegexDic = {
 			'descr_enu' : 'Security update for Microsoft Exchange Server 20#1# #2#',
 			'group' : 1
         }
+    ],
+    'powershell' : [
+        {
+            'regex' : 'PowerShell LTS v(.+)\(x64\)',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell LTS V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	1	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descr_enu' : 'Security update for PowerShell LTS V.#1#_x64',
+			'group' : 1
+        },
+        {
+            'regex' : 'PowerShell v(.+) \(x64\)',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	1	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descr_enu' : 'Security update for PowerShell V.#1#_x64',
+			'group' : 1
+        }
     ]
 }
 
@@ -465,5 +479,6 @@ totalRowDic = {
     'office' : {},
     'internet' : {},
     'azure' : {},
-    'exchange' : {}
+    'exchange' : {},
+    'powershell' : {}
 }
