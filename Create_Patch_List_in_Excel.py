@@ -157,7 +157,7 @@ def createPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         None
     elif 'Azure' in des:
-        None
+        addPatchRow('azure', guid, kbid, des)
     elif 'Internet' in des:
         addPatchRow('internet', guid, kbid, des)
     elif 'Windows' in des:

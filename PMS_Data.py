@@ -430,29 +430,35 @@ totalRegexDic = {
         },
         {
             'regex' : 'x86 기반 시스템 Windows Server 2008용 Internet Explorer 9',
-            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008 IE9)	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
 			'descr_enu' : 'Cumulative Security Update for Internet Explorer (Windows 2008 IE9)',
 			'group' : 1
         },
         {
             'regex' : 'x64 기반 시스템 Windows Server 2008용 Internet Explorer 9',
-            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008_x64 IE9)	http://support.microsoft.com/kb/#ki#	0	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008_x64 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
 			'descr_enu' : 'Cumulative Security Update for Internet Explorer (Windows 2008_x64 IE9)',
 			'group' : 1
         }
     ],
     'azure' : [
         {
-            'regex' : '',
-            'excel' : '',
-			'descr_enu' : '',
+            'regex' : 'Cumulative Update for Azure Stack HCI  version 20H2 and  Windows Server 2019',
+            'excel' : '	Q#ki# ASHCI	#gi#	#ki#	99	W10		#df1#	Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descr_enu' : 'Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Azure Stack HCI  version 20H2',
+            'excel' : '	Q#ki# 10_20H2	#gi#	#ki#	99	W10		#df1#	Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descr_enu' : 'Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems',
 			'group' : 1
         }
     ],
     'exchange' : [
         {
             'regex' : 'Exchange Server 20(\d{2}) (\w{4})',
-            'excel' : '	Q#ki# MSES2#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_ES2#1#	#df1#	Microsoft Exchange Server용 보안 업데이트 (Microsoft Exchange Server 20#1# #2#)	http://support.microsoft.com/kb/#ki#	0	0	Microsoft	MS16-108, CVE-2016-0138, CVE-2016-3378, CVE-2016-3379	Microsoft Exchange 정보 유출 취약성 - Microsoft Exchange Server가 전자 메일 메시지를 구문 분석하는 방식에 정보 유출 취약성이 존재합니다. 이 취약성으로 인해 공격자는 Microsoft Outlook 응용 프로그램에 포함된 기밀 사용자 정보를 검색할 수 있습니다.\n공격자는 취약성을 악용하기 위해 "다른 사람 이름으로 보내기" 권한을 사용하여 특수 제작된 메시지를 사용자에게 보낼 수 있습니다.\n이 보안 업데이트는 Microsoft Exchange가 일부 비구조적 파일 형식을 구문 분석하는 방식을 수정하여 취약성을 해결합니다.\n\nMicrosoft Exchange 공개 리디렉션 취약성 - 스푸핑을 유발할 수 있는 공개 리디렉션 취약성이 Microsoft Exchange에 존재합니다. 이 취약성을 악용하기 위해 공격자는 특수 제작된 URL이 있는 링크를 보내 사용자가 링크를 클릭하도록 유도할 수 있습니다. 인증된 Exchange 사용자가 링크를 클릭하면 인증된 사용자의 브라우저 세션이 적법한 웹 사이트를 가장하도록 설계된 악성 사이트로 리디렉션될 수 있습니다. 이 경우 공격자는 사용자를 속여 잠재적으로 사용자의 자격 증명과 같은 중요 정보를 획득할 수 있습니다.\n이 업데이트는 Exchange가 공개 리디렉션 요청을 처리하는 방식을 수정하여 취약성을 해결합니다.\n\nMicrosoft Exchange 권한 상승 취약성 - Microsoft Outlook이 모임 초대 요청을 처리하는 방식에 권한 상승 취약성이 존재합니다. 이 취약성을 악용하기 위해 공격자는 악성 XSS(교차 사이트 스크립팅) 기능이 있는 특수 제작된 Outlook 모임 초대 요청을 사용자에게 보낼 수 있습니다.\n이 업데이트는 Outlook이 모임 초대 요청을 처리하는 방식을 수정하여 취약성을 해결합니다.	1	Exchange20#1#-#2#-#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'excel' : '	Q#ki# MSES2#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_ES2#1#	#df1#	Microsoft Exchange Server용 보안 업데이트 (Microsoft Exchange Server 20#1# #2#)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft	MS16-108, CVE-2016-0138, CVE-2016-3378, CVE-2016-3379	Microsoft Exchange 정보 유출 취약성 - Microsoft Exchange Server가 전자 메일 메시지를 구문 분석하는 방식에 정보 유출 취약성이 존재합니다. 이 취약성으로 인해 공격자는 Microsoft Outlook 응용 프로그램에 포함된 기밀 사용자 정보를 검색할 수 있습니다.\n공격자는 취약성을 악용하기 위해 "다른 사람 이름으로 보내기" 권한을 사용하여 특수 제작된 메시지를 사용자에게 보낼 수 있습니다.\n이 보안 업데이트는 Microsoft Exchange가 일부 비구조적 파일 형식을 구문 분석하는 방식을 수정하여 취약성을 해결합니다.\n\nMicrosoft Exchange 공개 리디렉션 취약성 - 스푸핑을 유발할 수 있는 공개 리디렉션 취약성이 Microsoft Exchange에 존재합니다. 이 취약성을 악용하기 위해 공격자는 특수 제작된 URL이 있는 링크를 보내 사용자가 링크를 클릭하도록 유도할 수 있습니다. 인증된 Exchange 사용자가 링크를 클릭하면 인증된 사용자의 브라우저 세션이 적법한 웹 사이트를 가장하도록 설계된 악성 사이트로 리디렉션될 수 있습니다. 이 경우 공격자는 사용자를 속여 잠재적으로 사용자의 자격 증명과 같은 중요 정보를 획득할 수 있습니다.\n이 업데이트는 Exchange가 공개 리디렉션 요청을 처리하는 방식을 수정하여 취약성을 해결합니다.\n\nMicrosoft Exchange 권한 상승 취약성 - Microsoft Outlook이 모임 초대 요청을 처리하는 방식에 권한 상승 취약성이 존재합니다. 이 취약성을 악용하기 위해 공격자는 악성 XSS(교차 사이트 스크립팅) 기능이 있는 특수 제작된 Outlook 모임 초대 요청을 사용자에게 보낼 수 있습니다.\n이 업데이트는 Outlook이 모임 초대 요청을 처리하는 방식을 수정하여 취약성을 해결합니다.	1	Exchange20#1#-#2#-#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
 			'descr_enu' : 'Security update for Microsoft Exchange Server 20#1# #2#',
 			'group' : 1
         }
@@ -460,13 +466,13 @@ totalRegexDic = {
     'powershell' : [
         {
             'regex' : 'PowerShell LTS v(.+)\(x64\)',
-            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell LTS V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	1	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell LTS V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
 			'descr_enu' : 'Security update for PowerShell LTS V.#1#_x64',
 			'group' : 1
         },
         {
             'regex' : 'PowerShell v(.+) \(x64\)',
-            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	1	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
 			'descr_enu' : 'Security update for PowerShell V.#1#_x64',
 			'group' : 1
         }
