@@ -81,6 +81,8 @@ def getDownloadInfo(guid):
     regexForDownloadLink = "].url = '(https://.+)'"
     regexForFileName = "].fileName = '(.+)'"
     result = {}
+    result['downloadLinkTuple'] = ()
+    result['fileNameTuple'] = ()
     try:
         response = requests.request("POST", url, data=postData)
         if response.status_code == 200:
@@ -160,9 +162,6 @@ def addPatchRow(Classification, guid, kbid, des):
     undecidedList.append([guid, kbid, des])
 
 def addPatchRowForDotNet(guid, kbid, des):
-    # if guid == '9356c643-7b1f-41f3-ac06-4a35cba1bcf1':
-        # print('here')
-
     global endPeriod
     regexList = pmsd.totalRegexDic['dotnet']
     for regexDic in regexList:
@@ -284,7 +283,7 @@ def createPatchRowsByType(guid, kbid, des):
     elif any(one in des for one in pmsd.officeList):
         addPatchRow('office', guid, kbid, des)
     else:
-        None
+        addPatchRow('etc', guid, kbid, des)
 
 def readPatchListFromExcel():
     global endPeriod
