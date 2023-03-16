@@ -8,14 +8,19 @@ import requests
 from bs4 import BeautifulSoup
 import PMS_Data as pmsd
 import time
+import os
 
 undecidedList = []
 
 startPeriod = None
 endPeriod = None
 
+previousPatchList = []
+previousPatchListPath = ''
 importantSet = set()
 criticalSet = set()
+duplicationPatchList = []
+newPatchList = []
 
 def getPatchPeriod():
     global startPeriod
@@ -39,19 +44,33 @@ def getPatchDateByMonth(dateTime):
 def isPatchExclusion(des):
     return any(one in des for one in pmsd.patchExclusionList)
 
-def validatePatchInfo(kbid, des):
+def validatePatchInfo(guid, kbid, des):
     if not isinstance(kbid, float) or kbid == 0:
         return False
     if not isinstance(des, str) or isPatchExclusion(des):
         return False
+    if (guid+'\t'+str(int(kbid))+'\n') in previousPatchList:
+        duplicationPatchList.append([guid, kbid, des])
+        return False
     return True
+
+def makePreviousPatchList():
+    global previousPatchList
+    global startPeriod
+    global previousPatchListPath
+
+    previousPatchListPath = './' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt'
+    f = open(previousPatchListPath, 'r')
+    previousPatchList = f.readlines()
+    f.close()
+
 
 def makeSeveritySet():
     global importantSet
     global criticalSet
     global endPeriod
 
-    xlsPath = "./Security Updates " + endPeriod.strftime('%Y-%m-%d') + '.csv'
+    xlsPath = './Security Updates ' + endPeriod.strftime('%Y-%m-%d') + '.csv'
 
     securityUpdates = pd.read_csv(xlsPath, encoding = 'ANSI')
     securityUpdates = securityUpdates.rename(columns={"Max Severity":"Severity"})
@@ -306,8 +325,9 @@ def createPatchRows(patchList):
             elif row_datetime < startPeriod:
                 break
             else:
-                if validatePatchInfo(patchList.KBID[i], patchList.Des[i]):
+                if validatePatchInfo(patchList.GUID[i], patchList.KBID[i], patchList.Des[i]):
                     createPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
+                    newPatchList.append(patchList.GUID[i]+'\t'+str(int(patchList.KBID[i]))+'\n')
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             print('ValueError : ' ,e)
         except TypeError as e:  # 날짜영역이 비어있는 경우
@@ -334,8 +354,20 @@ def writePatchListToExcel():
     for one in undecidedList:
         exception_ws.append(one)
 
+    duplication_ws =wb.create_sheet()
+    duplication_ws.title = 'duplication'
+    for one in duplicationPatchList:
+        duplication_ws.append(one)
+
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     wb.save(xlsxPath)
+
+def updatePreviousPatchList():
+    f = open(previousPatchListPath, 'a')
+    for one in newPatchList:
+        f.write(one)
+    f.close()
+    os.rename(previousPatchListPath, './' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt')
 
 def main():
     global startPeriod
@@ -350,10 +382,13 @@ def main():
         sys.exit()
 
     makeSeveritySet()
+    makePreviousPatchList()
 
     patchList = readPatchListFromExcel()
     createPatchRows(patchList)
     writePatchListToExcel()
+
+    updatePreviousPatchList()
 
 startTime = time.time()
 main()
