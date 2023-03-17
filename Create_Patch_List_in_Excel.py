@@ -2,6 +2,7 @@ import datetime as dt
 from dateutil.relativedelta import relativedelta
 import pandas as pd
 from openpyxl import Workbook
+from openpyxl.styles import DEFAULT_FONT, Font
 import sys
 import re
 import requests
@@ -161,6 +162,11 @@ def addPatchRow(Classification, guid, kbid, des):
             korList = [name, descr_kor, refer, '']
             descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish
             enuList = [descriptionInEnglish, refer, '']
+            
+            # 문자열 숫자 -> 정수로 형변환
+            for i in [3,4,10,11,15,17]:
+                if tempList[i] != '':
+                    tempList[i] = int(tempList[i])
 
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadInfo = getDownloadInfo(guid)
@@ -224,6 +230,10 @@ def addPatchRowForDotNet(guid, kbid, des):
             korList = [name, descr_kor, refer, '']
             descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish.replace('#dv#', versionStr)
             enuList = [descriptionInEnglish, refer, '']
+
+            # 문자열 숫자 -> 정수로 형변환
+            for i in [3,4,10,11,15,17]:
+                tempList[i] = int(tempList[i])
 
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadInfo = getDownloadInfo(guid)
@@ -336,6 +346,7 @@ def createPatchRows(patchList):
 
 def writePatchListToExcel():
     global endPeriod
+    rowCount = 0
     wb = Workbook()
     normal_ws = wb.active
     normal_ws.title = 'normal'
@@ -347,6 +358,7 @@ def writePatchListToExcel():
                 normal_ws.append(one)
             normal_ws.append([])
             normal_ws.append([])
+            rowCount += len(list) + 2
 
     undecided_ws = wb.create_sheet()
     undecided_ws.title = 'undecided'
@@ -364,6 +376,11 @@ def writePatchListToExcel():
         exclusion_ws.append(one)
 
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
+    # DEFAULT_FONT.name = '굴림체'
+    DEFAULT_FONT.size = '10'
+    for row in normal_ws['1:'+ str(rowCount)]:
+        for cell in row:
+            cell.font = Font(name='굴림체')
     wb.save(xlsxPath)
 
 def writePreviousPatchListTxt():
