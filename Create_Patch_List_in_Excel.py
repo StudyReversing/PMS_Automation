@@ -17,6 +17,7 @@ endPeriod = None
 previousPatchList = []
 importantSet = set()
 criticalSet = set()
+exclusionPatchList = []
 duplicationPatchList = []
 newPatchList = []
 
@@ -44,8 +45,10 @@ def isPatchExclusion(des):
 
 def validatePatchInfo(guid, kbid, des):
     if not isinstance(kbid, float) or kbid == 0:
+        exclusionPatchList.append([guid, kbid, des])
         return False
     if not isinstance(des, str) or isPatchExclusion(des):
+        exclusionPatchList.append([guid, kbid, des])
         return False
     if (guid+'\t'+str(int(kbid))+'\n') in previousPatchList:
         duplicationPatchList.append([guid, kbid, des])
@@ -350,10 +353,15 @@ def writePatchListToExcel():
     for one in undecidedList:
         undecided_ws.append(one)
 
-    duplication_ws =wb.create_sheet()
+    duplication_ws = wb.create_sheet()
     duplication_ws.title = 'duplication'
     for one in duplicationPatchList:
         duplication_ws.append(one)
+
+    exclusion_ws = wb.create_sheet()
+    exclusion_ws.title = 'exclusion'
+    for one in exclusionPatchList:
+        exclusion_ws.append(one)
 
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     wb.save(xlsxPath)
