@@ -8,7 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 import PMS_Data as pmsd
 import time
-import os
 
 undecidedList = []
 
@@ -16,7 +15,6 @@ startPeriod = None
 endPeriod = None
 
 previousPatchList = []
-previousPatchListPath = ''
 importantSet = set()
 criticalSet = set()
 duplicationPatchList = []
@@ -57,10 +55,8 @@ def validatePatchInfo(guid, kbid, des):
 def makePreviousPatchList():
     global previousPatchList
     global startPeriod
-    global previousPatchListPath
 
-    previousPatchListPath = './' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt'
-    f = open(previousPatchListPath, 'r')
+    f = open('./' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt', 'r')
     previousPatchList = f.readlines()
     f.close()
 
@@ -349,10 +345,10 @@ def writePatchListToExcel():
             normal_ws.append([])
             normal_ws.append([])
 
-    exception_ws = wb.create_sheet()
-    exception_ws.title = 'exception'
+    undecided_ws = wb.create_sheet()
+    undecided_ws.title = 'undecided'
     for one in undecidedList:
-        exception_ws.append(one)
+        undecided_ws.append(one)
 
     duplication_ws =wb.create_sheet()
     duplication_ws.title = 'duplication'
@@ -362,12 +358,12 @@ def writePatchListToExcel():
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     wb.save(xlsxPath)
 
-def updatePreviousPatchList():
-    f = open(previousPatchListPath, 'a')
-    for one in newPatchList:
+def writePreviousPatchListTxt():
+    f = open('./' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt', 'w')
+    totalPatchList = previousPatchList + newPatchList
+    for one in totalPatchList:
         f.write(one)
     f.close()
-    os.rename(previousPatchListPath, './' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt')
 
 def main():
     global startPeriod
@@ -388,7 +384,7 @@ def main():
     createPatchRows(patchList)
     writePatchListToExcel()
 
-    updatePreviousPatchList()
+    writePreviousPatchListTxt()
 
 startTime = time.time()
 main()
