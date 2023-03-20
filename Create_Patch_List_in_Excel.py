@@ -170,8 +170,8 @@ def addPatchRow(Classification, guid, kbid, des):
 
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadInfo = getDownloadInfo(guid)
-            downloadLinkTuple = downloadInfo['downloadLinkTuple']
-            tempList.extend([des, len(downloadLinkTuple), ','.join(one for one in downloadLinkTuple)])
+            fileNameTuple = downloadInfo['fileNameTuple']
+            tempList.extend([des, len(fileNameTuple)])
 
             # 최종행 저장
             if regexDic['group'] not in pmsd.totalRowDic[Classification]:
@@ -182,7 +182,6 @@ def addPatchRow(Classification, guid, kbid, des):
         else:
             undecidedList.append([guid, kbid, des])
             return
-    
     undecidedList.append([guid, kbid, des])
 
 def addPatchRowForDotNet(guid, kbid, des):
@@ -233,14 +232,14 @@ def addPatchRowForDotNet(guid, kbid, des):
 
             # 문자열 숫자 -> 정수로 형변환
             for i in [3,4,10,11,15,17]:
-                tempList[i] = int(tempList[i])
+                if tempList[i] != '':
+                    tempList[i] = int(tempList[i])
 
             # 다운로드 링크, 다운로드 파일 수 적용
             downloadInfo = getDownloadInfo(guid)
-            downloadLinkTuple = downloadInfo['downloadLinkTuple']
             fileNameTuple = downloadInfo['fileNameTuple']
 
-            downloadLength = len(downloadLinkTuple)
+            downloadLength = len(fileNameTuple)
             # if downloadLength == 1:
             #     tempList.extend([des, 1, downloadLinkTuple[0]])
             #     # 최종행 저장
@@ -249,9 +248,9 @@ def addPatchRowForDotNet(guid, kbid, des):
             #     tempList.extend(korList + enuList)
             #     pmsd.totalRowDic['dotnet'][regexDic['group']].append(tempList)
             if downloadLength > 0:
-                for i in range(len(downloadLinkTuple)):
+                for i in range(len(fileNameTuple)):
                     copyList = tempList.copy()
-                    copyList.extend([des, 1, downloadLinkTuple[i]])
+                    copyList.extend([des, 1])
                     for fileNameRegexDic in regexDic['fileName']:
                         fileNameRegexPattern = re.compile(fileNameRegexDic['regex'])
                         resultForFileName = re.findall(fileNameRegexPattern, fileNameTuple[i])
@@ -277,7 +276,7 @@ def addPatchRowForDotNet(guid, kbid, des):
                     copyList.extend(korList + enuList)
                     pmsd.totalRowDic['dotnet'][regexDic['group']].append(copyList)
             else:
-                tempList.extend([des, 0, ''])
+                tempList.extend([des, 0])
                 # 최종행 저장
                 if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
                     pmsd.totalRowDic['dotnet'][regexDic['group']] = []
@@ -287,7 +286,76 @@ def addPatchRowForDotNet(guid, kbid, des):
         else:
             undecidedList.append([guid, kbid, des])
             return
-    
+    undecidedList.append([guid, kbid, des])
+
+def addPatchRowByFileName(Classification, guid, kbid, des):
+    global endPeriod
+    regexList = pmsd.totalRegexDicByFileName[Classification]
+    for regexDic in regexList:
+        regexPattern = re.compile(regexDic['regex'])
+        result = re.findall(regexPattern, des)
+        length = len(result)
+        if length == 0:
+            continue
+        elif length == 1:
+            downloadInfo = getDownloadInfo(guid)
+            fileNameTuple = downloadInfo['fileNameTuple']
+            for fileName in fileNameTuple:
+                for one in regexDic['fileName']:
+                    fileNamePattern = re.compile(one['regex'])
+                    res = re.findall(fileNamePattern, fileName)
+                    resLength = len(res)
+                    if resLength == 0:
+                        continue
+                    elif resLength == 1:
+                        excel = one['excel']
+                        descriptionInEnglish = one['descriptionInEnglish']
+
+                        # KBID, GUID, dateForm1 적용
+                        excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
+                        
+                        # 개별 변경 사항 적용
+                        if isinstance(result[0], str):
+                            excel = excel.replace('#1#', result[0])
+                            descriptionInEnglish = descriptionInEnglish.replace('#1#', result[0])
+                        else:
+                            # type(result[0]) == tuple 일 경우
+                            for i in range(len(result[0])):
+                                excel = excel.replace('#'+str(i+1)+'#', result[0][i])
+                                descriptionInEnglish = descriptionInEnglish.replace('#'+str(i+1)+'#', result[0][i])
+                        
+                        # 심각도(Severity) 적용
+                        excel = setSeverity(excel, kbid)
+
+                        # multi_lan용 데이터 추출
+                        tempList = excel.split('\t')
+                        tempList[8] = endPeriod.strftime('%Y년 %m월, ') + tempList[8]
+                        name = tempList[1]
+                        descr_kor = tempList[8]
+                        refer = tempList[9]
+                        korList = [name, descr_kor, refer, '']
+                        descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish
+                        enuList = [descriptionInEnglish, refer, '']
+
+                        # 문자열 숫자 -> 정수로 형변환
+                        for i in [3,4,10,11,15,17]:
+                            if tempList[i] != '':
+                                tempList[i] = int(tempList[i])
+
+                        tempList.extend([des, 1])
+
+                        # 최종행 저장
+                        if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                            pmsd.totalRowDic[Classification][regexDic['group']] = []
+                        tempList.extend(korList + enuList)
+                        pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                        return
+                    else:
+                        undecidedList.append([guid, kbid, des])
+                        return
+        else:
+            undecidedList.append([guid, kbid, des])
+            return
     undecidedList.append([guid, kbid, des])
 
 def createPatchRowsByType(guid, kbid, des):
@@ -310,6 +378,8 @@ def createPatchRowsByType(guid, kbid, des):
         addPatchRow('powershell', guid, kbid, des)
     elif any(one in des for one in pmsd.officeList):
         addPatchRow('office', guid, kbid, des)
+    elif 'SQL Server' in des:
+        addPatchRowByFileName('sql-server', guid, kbid, des)
     else:
         addPatchRow('etc', guid, kbid, des)
 
