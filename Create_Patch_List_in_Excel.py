@@ -124,7 +124,48 @@ def getDownloadInfo(guid):
 
     return result
 
-def addPatchRow(Classification, guid, kbid, des):
+def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDotNet):
+    # KBID, GUID, dateForm1 적용
+    excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
+    
+    # 개별 변경 사항 적용
+    if isinstance(result[0], str):
+        excel = excel.replace('#1#', result[0])
+        descriptionInEnglish = descriptionInEnglish.replace('#1#', result[0])
+        if flagForDotNet:
+            if '.' in result[0]:
+                    versionStr = result[0].replace('및', 'and').replace('  ', ', ')
+                    excel = excel.replace('#dv#', versionStr)
+    else:
+        # type(result[0]) == tuple 일 경우
+        for i in range(len(result[0])):
+            excel = excel.replace('#'+str(i+1)+'#', result[0][i])
+            descriptionInEnglish = descriptionInEnglish.replace('#'+str(i+1)+'#', result[0][i])
+            if flagForDotNet:
+                if '.' in result[0][i]:
+                        versionStr = result[0][i].replace('및', 'and').replace('  ', ', ')
+                        excel = excel.replace('#dv#', versionStr)
+    
+    # 심각도(Severity) 적용
+    excel = setSeverity(excel, kbid)
+
+    # multi_lan용 데이터 추출
+    tempList = excel.split('\t')
+    tempList[8] = endPeriod.strftime('%Y년 %m월, ') + tempList[8]
+    name = tempList[1]
+    descr_kor = tempList[8]
+    refer = tempList[9]
+    korList = [name, descr_kor, refer, '']
+    descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish.replace('#dv#', versionStr) if flagForDotNet else endPeriod.strftime('%B, %Y ') + descriptionInEnglish
+    enuList = [descriptionInEnglish, refer, '']
+
+    # 문자열 숫자 -> 정수로 형변환
+    for i in [3,4,10,11,15,17]:
+        if tempList[i] != '':
+            tempList[i] = int(tempList[i])
+    return tempList, korList, enuList
+
+def addPatchRow(Classification, guid, kbid, des, flagDotNet):
     global endPeriod
     regexList = pmsd.totalRegexDic[Classification]
     for regexDic in regexList:
@@ -137,152 +178,61 @@ def addPatchRow(Classification, guid, kbid, des):
             excel = regexDic['excel']
             descriptionInEnglish = regexDic['descriptionInEnglish']
             
-            # KBID, GUID, dateForm1 적용
-            excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
-            
-            # 개별 변경 사항 적용
-            if isinstance(result[0], str):
-                excel = excel.replace('#1#', result[0])
-                descriptionInEnglish = descriptionInEnglish.replace('#1#', result[0])
+            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagDotNet)
+
+            if not flagDotNet:
+                # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
+                downloadInfo = getDownloadInfo(guid)
+                fileNameTuple = downloadInfo['fileNameTuple']
+                tempList.extend([des, len(fileNameTuple)])
+                # 최종행 저장
+                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                    pmsd.totalRowDic[Classification][regexDic['group']] = []
+                tempList.extend(korList + enuList)
+                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                return
             else:
-                # type(result[0]) == tuple 일 경우
-                for i in range(len(result[0])):
-                    excel = excel.replace('#'+str(i+1)+'#', result[0][i])
-                    descriptionInEnglish = descriptionInEnglish.replace('#'+str(i+1)+'#', result[0][i])
-            
-            # 심각도(Severity) 적용
-            excel = setSeverity(excel, kbid)
-            
-            # multi_lan용 데이터 추출
-            tempList = excel.split('\t')
-            tempList[8] = endPeriod.strftime('%Y년 %m월, ') + tempList[8]
-            name = tempList[1]
-            descr_kor = tempList[8]
-            refer = tempList[9]
-            korList = [name, descr_kor, refer, '']
-            descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish
-            enuList = [descriptionInEnglish, refer, '']
-            
-            # 문자열 숫자 -> 정수로 형변환
-            for i in [3,4,10,11,15,17]:
-                if tempList[i] != '':
-                    tempList[i] = int(tempList[i])
-
-            # 다운로드 링크, 다운로드 파일 수 적용
-            downloadInfo = getDownloadInfo(guid)
-            fileNameTuple = downloadInfo['fileNameTuple']
-            tempList.extend([des, len(fileNameTuple)])
-
-            # 최종행 저장
-            if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                pmsd.totalRowDic[Classification][regexDic['group']] = []
-            tempList.extend(korList + enuList)
-            pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
-            return
-        else:
-            undecidedList.append([guid, kbid, des])
-            return
-    undecidedList.append([guid, kbid, des])
-
-def addPatchRowForDotNet(guid, kbid, des):
-    global endPeriod
-    regexList = pmsd.totalRegexDic['dotnet']
-    for regexDic in regexList:
-        regexPattern = re.compile(regexDic['regex'])
-        result = re.findall(regexPattern, des)
-        length = len(result)
-        if length == 0:
-            continue
-        elif length == 1:
-            excel = regexDic['excel']
-            descriptionInEnglish = regexDic['descriptionInEnglish']
-            
-            # KBID, GUID, dateForm1 적용
-            excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
-            
-            # 개별 변경 사항 적용
-            versionStr = ''
-            if isinstance(result[0], str):
-                excel = excel.replace('#1#', result[0])
-                descriptionInEnglish = descriptionInEnglish.replace('#1#', result[0])
-                if '.' in result[0]:
-                    versionStr = result[0].replace('및', 'and').replace('  ', ', ')
-                    excel = excel.replace('#dv#', versionStr)
-            else:
-                # type(result[0]) == tuple 일 경우
-                for i in range(len(result[0])):
-                    excel = excel.replace('#'+str(i+1)+'#', result[0][i])
-                    descriptionInEnglish = descriptionInEnglish.replace('#'+str(i+1)+'#', result[0][i])
-                    if '.' in result[0][i]:
-                        versionStr = result[0][i].replace('및', 'and').replace('  ', ', ')
-                        excel = excel.replace('#dv#', versionStr)
-            
-            # 심각도(Severity) 적용
-            excel = setSeverity(excel, kbid)
-
-            # multi_lan용 데이터 추출
-            tempList = excel.split('\t')
-            tempList[8] = endPeriod.strftime('%Y년 %m월, ') + tempList[8]
-            name = tempList[1]
-            descr_kor = tempList[8]
-            refer = tempList[9]
-            korList = [name, descr_kor, refer, '']
-            descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish.replace('#dv#', versionStr)
-            enuList = [descriptionInEnglish, refer, '']
-
-            # 문자열 숫자 -> 정수로 형변환
-            for i in [3,4,10,11,15,17]:
-                if tempList[i] != '':
-                    tempList[i] = int(tempList[i])
-
-            # 다운로드 링크, 다운로드 파일 수 적용
-            downloadInfo = getDownloadInfo(guid)
-            fileNameTuple = downloadInfo['fileNameTuple']
-
-            downloadLength = len(fileNameTuple)
-            # if downloadLength == 1:
-            #     tempList.extend([des, 1, downloadLinkTuple[0]])
-            #     # 최종행 저장
-            #     if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
-            #         pmsd.totalRowDic['dotnet'][regexDic['group']] = []
-            #     tempList.extend(korList + enuList)
-            #     pmsd.totalRowDic['dotnet'][regexDic['group']].append(tempList)
-            if downloadLength > 0:
-                for i in range(len(fileNameTuple)):
-                    copyList = tempList.copy()
-                    copyList.extend([des, 1])
-                    for fileNameRegexDic in regexDic['fileName']:
-                        fileNameRegexPattern = re.compile(fileNameRegexDic['regex'])
-                        resultForFileName = re.findall(fileNameRegexPattern, fileNameTuple[i])
-                        length = len(resultForFileName)
-                        if length == 0:
-                            continue
-                        elif length == 1:
-                            excelForFileName = fileNameRegexDic['excel']
-                            if isinstance(result[0], str):
-                                excelForFileName = excelForFileName.replace('#1#', result[0])
-                            else:
-                                for i in range(len(result[0])):
-                                    excelForFileName = excelForFileName.replace('#'+str(i+1)+'#', result[0][i])
-                            if isinstance(resultForFileName[0], str):
-                                excelForFileName = excelForFileName.replace('#f1#', resultForFileName[0])
-                            else:
-                                for i in range(len(resultForFileName[0])):
-                                    excelForFileName = excelForFileName.replace('#f'+str(i+1)+'#', resultForFileName[0][i])
-                            copyList[16] = excelForFileName
-                    #최종행 저장
+                # 다운로드 파일 정보 반환
+                downloadInfo = getDownloadInfo(guid)
+                fileNameTuple = downloadInfo['fileNameTuple']
+                downloadLength = len(fileNameTuple)
+                if downloadLength > 0:
+                    for i in range(len(fileNameTuple)):
+                        copyList = tempList.copy()
+                        # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
+                        copyList.extend([des, 1])
+                        for fileNameRegexDic in regexDic['fileName']:
+                            fileNameRegexPattern = re.compile(fileNameRegexDic['regex'])
+                            resultForFileName = re.findall(fileNameRegexPattern, fileNameTuple[i])
+                            length = len(resultForFileName)
+                            if length == 0:
+                                continue
+                            elif length == 1:
+                                excelForFileName = fileNameRegexDic['excel']
+                                if isinstance(result[0], str):
+                                    excelForFileName = excelForFileName.replace('#1#', result[0])
+                                else:
+                                    for i in range(len(result[0])):
+                                        excelForFileName = excelForFileName.replace('#'+str(i+1)+'#', result[0][i])
+                                if isinstance(resultForFileName[0], str):
+                                    excelForFileName = excelForFileName.replace('#f1#', resultForFileName[0])
+                                else:
+                                    for i in range(len(resultForFileName[0])):
+                                        excelForFileName = excelForFileName.replace('#f'+str(i+1)+'#', resultForFileName[0][i])
+                                copyList[16] = excelForFileName
+                        #최종행 저장
+                        if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
+                            pmsd.totalRowDic['dotnet'][regexDic['group']] = []
+                        copyList.extend(korList + enuList)
+                        pmsd.totalRowDic['dotnet'][regexDic['group']].append(copyList)
+                else:
+                    tempList.extend([des, 0])
+                    # 최종행 저장
                     if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
                         pmsd.totalRowDic['dotnet'][regexDic['group']] = []
-                    copyList.extend(korList + enuList)
-                    pmsd.totalRowDic['dotnet'][regexDic['group']].append(copyList)
-            else:
-                tempList.extend([des, 0])
-                # 최종행 저장
-                if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
-                    pmsd.totalRowDic['dotnet'][regexDic['group']] = []
-                tempList.extend(korList + enuList)
-                pmsd.totalRowDic['dotnet'][regexDic['group']].append(tempList)
-            return
+                    tempList.extend(korList + enuList)
+                    pmsd.totalRowDic['dotnet'][regexDic['group']].append(tempList)
+                return
         else:
             undecidedList.append([guid, kbid, des])
             return
@@ -311,37 +261,9 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
                         excel = one['excel']
                         descriptionInEnglish = one['descriptionInEnglish']
 
-                        # KBID, GUID, dateForm1 적용
-                        excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
-                        
-                        # 개별 변경 사항 적용
-                        if isinstance(result[0], str):
-                            excel = excel.replace('#1#', result[0])
-                            descriptionInEnglish = descriptionInEnglish.replace('#1#', result[0])
-                        else:
-                            # type(result[0]) == tuple 일 경우
-                            for i in range(len(result[0])):
-                                excel = excel.replace('#'+str(i+1)+'#', result[0][i])
-                                descriptionInEnglish = descriptionInEnglish.replace('#'+str(i+1)+'#', result[0][i])
-                        
-                        # 심각도(Severity) 적용
-                        excel = setSeverity(excel, kbid)
+                        tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False)
 
-                        # multi_lan용 데이터 추출
-                        tempList = excel.split('\t')
-                        tempList[8] = endPeriod.strftime('%Y년 %m월, ') + tempList[8]
-                        name = tempList[1]
-                        descr_kor = tempList[8]
-                        refer = tempList[9]
-                        korList = [name, descr_kor, refer, '']
-                        descriptionInEnglish = endPeriod.strftime('%B, %Y ') + descriptionInEnglish
-                        enuList = [descriptionInEnglish, refer, '']
-
-                        # 문자열 숫자 -> 정수로 형변환
-                        for i in [3,4,10,11,15,17]:
-                            if tempList[i] != '':
-                                tempList[i] = int(tempList[i])
-
+                        # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
                         tempList.extend([des, 1])
 
                         # 최종행 저장
@@ -360,28 +282,28 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
 
 def createPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
-        addPatchRowForDotNet(guid, kbid, des)
+        addPatchRow('dotnet', guid, kbid, des, True)
     elif 'Azure' in des:
-        addPatchRow('azure', guid, kbid, des)
+        addPatchRow('azure', guid, kbid, des, False)
     elif 'Internet' in des:
-        addPatchRow('internet', guid, kbid, des)
+        addPatchRow('internet', guid, kbid, des, False)
     elif 'Windows' in des:
         if any(one in des for one in ['누적', 'Cumulative']):
-            addPatchRow('windows-cumulative', guid, kbid, des)
+            addPatchRow('windows-cumulative', guid, kbid, des, False)
         elif any(one in des for one in ['보안', 'Security']):
-            addPatchRow('windows-security', guid, kbid, des)
+            addPatchRow('windows-security', guid, kbid, des, False)
         else:
-            addPatchRow('windows-etc', guid, kbid, des)
+            addPatchRow('windows-etc', guid, kbid, des, False)
     elif 'Exchange' in des:
-        addPatchRow('exchange', guid, kbid, des)
+        addPatchRow('exchange', guid, kbid, des, False)
     elif 'PowerShell' in des:
-        addPatchRow('powershell', guid, kbid, des)
+        addPatchRow('powershell', guid, kbid, des, False)
     elif any(one in des for one in pmsd.officeList):
-        addPatchRow('office', guid, kbid, des)
+        addPatchRow('office', guid, kbid, des, False)
     elif 'SQL Server' in des:
         addPatchRowByFileName('sql-server', guid, kbid, des)
     else:
-        addPatchRow('etc', guid, kbid, des)
+        addPatchRow('etc', guid, kbid, des, False)
 
 def readPatchListFromExcel():
     global endPeriod
