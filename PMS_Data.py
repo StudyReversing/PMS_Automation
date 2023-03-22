@@ -1216,71 +1216,109 @@ totalRegexDic = {
 totalRegexDicByFileName = {
     'sql-server' : [
         {
-            'regex' : 'SQL Server 2008 Service Pack (.+) CU',
+            'regex' : 'SQL Server 2008 Service Pack (.+) (.+)용',
             'fileName' : [
                 {
                     'regex' : 'sqlserver2008-kb(\d{7})-x86',
-                    'excel' : '	Q#ki# MSSQL28SP#1#CU	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL28	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 SP#1# CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL28SP#1##2#	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL28	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 SP#1# #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 SP#1# #2#)'
                 },
                 {
                     'regex' : 'sqlserver2008-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL28SP#1#CU_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL28	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 SP#1# x64 CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 x64 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL28SP#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL28	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 SP#1# x64 #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 x64 SP#1# #2#)'
                 }
             ],
 			'group' : 1
         },
         {
-            'regex' : 'SQL Server 2008 R2 Service Pack (.+) CU',
+            'regex' : 'SQL Server 2008 R2 Service Pack (.+) (.+)용',
             'fileName' : [
                 {
                     'regex' : 'sqlserver2008r2-kb(\d{7})-x86',
-                    'excel' : '	Q#ki# MSSQL28R2SP#1#CU	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL28R2	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 R2 SP#1# CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008R2-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 R2 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL28R2SP#1##2#	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL28R2	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 R2 SP#1# #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008R2-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 R2 SP#1# #2#)'
                 },
                 {
                     'regex' : 'sqlserver2008r2-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL28R2SP#1#CU_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL28R2	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 R2 SP#1# x64 CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008R2-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 R2 x64 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL28R2SP#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL28R2	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2008 R2 SP#1# x64 #2 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2008R2-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2008 R2 x64 SP#1# #2#)'
                 }
             ],
 			'group' : 1
         },
         {
-            'regex' : 'SQL Server 2012 Service Pack (.+) CU',
+            'regex' : 'SQL Server 2012 Service Pack (.+) (.+)용',
             'fileName' : [
                 {
                     'regex' : 'sqlserver2012-kb(\d{7})-x86',
-                    'excel' : '	Q#ki# MSSQL212SP#1#CU	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL212	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2012 SP#1# CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2012-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2012 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL212SP#1##2#	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL212	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2012 SP#1# #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2012-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2012 SP#1# #2#)'
                 },
                 {
                     'regex' : 'sqlserver2012-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL212SP#1#CU_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL212	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2012 SP#1# x64 CU 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2012-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2012 x64 SP#1# CU)'
+                    'excel' : '	Q#ki# MSSQL212SP#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL212	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2012 SP#1# x64 #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2012-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2012 x64 SP#1# #2#)'
                 }
             ],
 			'group' : 1
         },
         {
-            'regex' : 'SQL Server 2019 RTM GDR',
+            'regex' : 'SQL Server 2014 Service Pack (.+) (.+)용',
+            'fileName' : [
+                {
+                    'regex' : 'sqlserver2014-kb(\d{7})-x86',
+                    'excel' : '	Q#ki# MSSQL214SP#1##2#	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_SQL214	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2014 SP#1# #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2014-KB#ki#-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2014 SP#1# #2#)'
+                },
+                {
+                    'regex' : 'sqlserver2014-kb(\d{7})-x64',
+                    'excel' : '	Q#ki# MSSQL214SP#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL214	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2014 SP#1# x64 #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2014-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2014 SP#1# x64 #2#)'
+                }
+            ],
+			'group' : 1
+        },
+        {
+            'regex' : 'SQL Server 2016 Service Pack (.+) (.+)용',
+            'fileName' : [
+                {
+                    'regex' : 'sqlserver2016-kb(\d{7})-x64',
+                    'excel' : '	Q#ki# MSSQL216SP#1##2#_x64	#gi#	#ki#	9	W8,W212,W81,W212R2,W216	MS_SQL216	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2016 SP#1# x64 #2# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2016-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2016 SP#1# x64 #2#)'
+                }
+            ],
+			'group' : 1
+        },
+        {
+            'regex' : 'SQL Server 2017 RTM (.+)용',
+            'fileName' : [
+                {
+                    'regex' : 'sqlserver2017-kb(\d{7})-x64',
+                    'excel' : '	Q#ki# MSSQL217RTM#1#_x64	#gi#	#ki#	9	WXP,W23,WVT,W28,W7,W8,W81,W10,W212	MS_SQL217	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2017 RTM x64 #1# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2017-KB#ki#-x64-KOR.exe	1	 /quiet	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2017 RTM x64 #1#)'
+                }
+            ],
+			'group' : 1
+        },
+        {
+            'regex' : 'SQL Server 2019 RTM (.+)용',
             'fileName' : [
                 {
                     'regex' : 'sqlserver2019-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL219RTMGDR_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL219	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2019 RTM x64 GDR 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2019-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2019 RTM x64 GDR)'
+                    'excel' : '	Q#ki# MSSQL219RTM#1#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W219	MS_SQL219	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2019 RTM x64 #1# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2019-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2019 RTM x64 #1#)'
                 }
             ],
 			'group' : 1
         },
         {
-            'regex' : 'SQL Server 2022 RTM GDR',
+            'regex' : 'SQL Server 2022 RTM (.+)용',
             'fileName' : [
                 {
                     'regex' : 'sqlserver2022-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL222RTMGDR_x64	#gi#	#ki#	9	W10,W216,W219,W11,W222	MS_SQL222	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2022 RTM x64 GDR 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2022-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2022 RTM x64 GDR)'
+                    'excel' : '	Q#ki# MSSQL222RTM#1#_x64	#gi#	#ki#	9	W10,W216,W219,W11,W222	MS_SQL222	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2022 RTM x64 #1# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2022-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2022 RTM x64 #1#)'
                 }
             ],
 			'group' : 1
