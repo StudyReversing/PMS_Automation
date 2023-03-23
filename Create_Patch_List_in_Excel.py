@@ -284,7 +284,10 @@ def createPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         addPatchRow('dotnet', guid, kbid, des, True)
     elif 'Azure' in des:
-        addPatchRow('azure', guid, kbid, des, False)
+        if 'Azure File Sync Agent' in des:
+            addPatchRowByFileName('azure-file-sync-agent', guid, kbid, des)
+        else:
+            addPatchRow('azure', guid, kbid, des, False)
     elif 'Internet' in des:
         addPatchRow('internet', guid, kbid, des, False)
     elif 'Windows' in des:

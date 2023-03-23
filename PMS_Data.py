@@ -1317,8 +1317,36 @@ totalRegexDicByFileName = {
             'fileName' : [
                 {
                     'regex' : 'sqlserver2022-kb(\d{7})-x64',
-                    'excel' : '	Q#ki# MSSQL222RTM#1#_x64	#gi#	#ki#	9	W10,W216,W219,W11,W222	MS_SQL222	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2022 RTM x64 #1# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2022-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+                    'excel' : '	Q#ki# MSSQL222RTM#1#_x64	#gi#	#ki#	9	W10,W216,W219,W11,W2022	MS_SQL222	#df1#	SQL Server용 보안 업데이트 (Microsoft SQL Server 2022 RTM x64 #1# 보안 업데이트)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	SQLServer2022-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
                     'descriptionInEnglish' : 'Security Update for SQL Server (Microsoft SQL Server 2022 RTM x64 #1#)'
+                }
+            ],
+			'group' : 1
+        }
+    ],
+    'azure-file-sync-agent' : [
+        {
+            'regex' : 'Azure File Sync Agent',
+            'fileName' : [
+                {
+                    'regex' : 'storagesyncagent_ws2012r2_',
+                    'excel' : '	Q#ki# 212R2	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Update Rollup for Azure File Sync Agent (Windows Server 2012R2)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	StorageSyncAgent-WS2012R2-KB#ki#-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup for Azure File Sync Agent (Windows Server 2012R2)'
+                },
+                {
+                    'regex' : 'storagesyncagent_ws2016_',
+                    'excel' : '	Q#ki# 216	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Update Rollup for Azure File Sync Agent (Windows Server 2016)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	StorageSyncAgent-WS2016-KB#ki#-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup for Azure File Sync Agent (Windows Server 2016)'
+                },
+                {
+                    'regex' : 'storagesyncagent_ws2019_',
+                    'excel' : '	Q#ki# 219	#gi#	#ki#	9	W219		#df1#	Update Rollup for Azure File Sync Agent (Windows Server 2019)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	StorageSyncAgent-WS2019-KB#ki#-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup for Azure File Sync Agent (Windows Server 2019)'
+                },
+                {
+                    'regex' : 'storagesyncagent_ws2022_',
+                    'excel' : '	Q#ki# 222	#gi#	#ki#	9	W2022		#df1#	Update Rollup for Azure File Sync Agent (Windows Server 2022)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	StorageSyncAgent-WS2022-KB#ki#-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup for Azure File Sync Agent (Windows Server 2022)'
                 }
             ],
 			'group' : 1
@@ -1337,5 +1365,6 @@ totalRowDic = {
     'exchange' : {},
     'powershell' : {},
     'sql-server' : {},
+    'azure-file-sync-agent' : {},
     'etc' : {}
 }
