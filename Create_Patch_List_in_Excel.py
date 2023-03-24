@@ -305,6 +305,8 @@ def createPatchRowsByType(guid, kbid, des):
         addPatchRow('office', guid, kbid, des, False)
     elif 'SQL Server' in des:
         addPatchRowByFileName('sql-server', guid, kbid, des)
+    elif 'Microsoft System Center' in des:
+        addPatchRowByFileName('microsoft-system-center', guid, kbid, des)
     else:
         addPatchRow('etc', guid, kbid, des, False)
 
