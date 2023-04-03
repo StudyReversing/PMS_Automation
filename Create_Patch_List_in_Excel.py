@@ -185,6 +185,8 @@ def addPatchRow(Classification, guid, kbid, des):
             fileNameTuple = downloadInfo['fileNameTuple']
             tempList.extend([des, len(fileNameTuple)])
             # 최종행 저장
+            if Classification not in pmsd.totalRowDic:
+                pmsd.totalRowDic[Classification] = {}
             if regexDic['group'] not in pmsd.totalRowDic[Classification]:
                 pmsd.totalRowDic[Classification][regexDic['group']] = []
             tempList.extend(korList + enuList)
@@ -240,17 +242,21 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des):
                                     excelForFileName = excelForFileName.replace('#f'+str(i+1)+'#', resultForFileName[0][i])
                             copyList[16] = excelForFileName
                     #최종행 저장
-                    if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
-                        pmsd.totalRowDic['dotnet'][regexDic['group']] = []
+                    if Classification not in pmsd.totalRowDic:
+                        pmsd.totalRowDic[Classification] = {}
+                    if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                        pmsd.totalRowDic[Classification][regexDic['group']] = []
                     copyList.extend(korList + enuList)
-                    pmsd.totalRowDic['dotnet'][regexDic['group']].append(copyList)
+                    pmsd.totalRowDic[Classification][regexDic['group']].append(copyList)
             else:
                 tempList.extend([des, 0])
                 # 최종행 저장
-                if regexDic['group'] not in pmsd.totalRowDic['dotnet']:
-                    pmsd.totalRowDic['dotnet'][regexDic['group']] = []
+                if Classification not in pmsd.totalRowDic:
+                    pmsd.totalRowDic[Classification] = {}
+                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                    pmsd.totalRowDic[Classification][regexDic['group']] = []
                 tempList.extend(korList + enuList)
-                pmsd.totalRowDic['dotnet'][regexDic['group']].append(tempList)
+                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
             return
         else:
             undecidedList.append([guid, kbid, des])
@@ -286,6 +292,8 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
                         tempList.extend([des, 1])
 
                         # 최종행 저장
+                        if Classification not in pmsd.totalRowDic:
+                            pmsd.totalRowDic[Classification] = {}
                         if regexDic['group'] not in pmsd.totalRowDic[Classification]:
                             pmsd.totalRowDic[Classification][regexDic['group']] = []
                         tempList.extend(korList + enuList)
