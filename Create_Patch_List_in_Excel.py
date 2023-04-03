@@ -199,7 +199,7 @@ def addPatchRow(Classification, guid, kbid, des):
 
 def addPatchRowForMultiFile(Classification, guid, kbid, des):
     global endPeriod
-    regexList = pmsd.totalRegexDic[Classification]
+    regexList = pmsd.totalRegexDicForMultiFile[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
         result = re.findall(regexPattern, des)

@@ -461,6 +461,121 @@ totalRegexDic = {
 			'group' : 1
         }
     ],
+    'internet' : [
+        {
+            'regex' : 'x86 기반 시스템 Windows 7용 Internet Explorer 11',
+            'excel' : '	Q#ki# 7	#gi#	#ki#	0	W7	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 7 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 7 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows 7용 Internet Explorer 11',
+            'excel' : '	Q#ki# 7_x64	#gi#	#ki#	9	W7	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 7_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 7_x64 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템 Windows 8.1용 Internet Explorer 11',
+            'excel' : '	Q#ki# 81	#gi#	#ki#	0	W81	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 8.1 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 8.1 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows 8.1용 Internet Explorer 11',
+            'excel' : '	Q#ki# 81_x64	#gi#	#ki#	9	W81	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 8.1_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 8.1_x64 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows Server 2008 R2용 Internet Explorer 11',
+            'excel' : '	Q#ki# 28R2_x64	#gi#	#ki#	9	W28R2	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008R2_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008R2_x64 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows Server 2012용 Internet Explorer 11',
+            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2012 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.2-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2012 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows Server 2012 R2용 Internet Explorer 11',
+            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2012R2 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2012R2 IE11)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x86 기반 시스템 Windows Server 2008용 Internet Explorer 9',
+            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008 IE9)',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템 Windows Server 2008용 Internet Explorer 9',
+            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008_x64 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008_x64 IE9)',
+			'group' : 1
+        }
+    ],
+    'azure' : [
+        {
+            'regex' : 'Cumulative Update for Azure Stack HCI  version 20H2 and  Windows Server 2019',
+            'excel' : '	Q#ki# ASHCI	#gi#	#ki#	99	W10		#df1#	Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems',
+			'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Azure Stack HCI  version 20H2',
+            'excel' : '	Q#ki# 10_20H2	#gi#	#ki#	99	W10		#df1#	Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems',
+			'group' : 1
+        },
+        {
+            'regex' : '누적 보안Hotpatch Azure Stack HCI  version (\w{4})용 및 Windows Server (\d{4}) Datacenter: Azure Edition x64',
+            'excel' : '	Q#ki# ASHCI	#gi#	#ki#	99	W10		#df1#	Cumulative Update for Azure Stack HCI, version #1# and Windows Server #2# Datacenter- Azure Edition for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Update for Azure Stack HCI, version #1# and Windows Server #2# Datacenter- Azure Edition for x64-based Systems',
+			'group' : 1
+        }
+    ],
+    'exchange' : [
+        {
+            'regex' : 'Exchange Server 20(\d{2}) (\w{4})',
+            'excel' : '	Q#ki# MSES2#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_ES2#1#	#df1#	Microsoft Exchange Server용 보안 업데이트 (Microsoft Exchange Server 20#1# #2#)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Exchange20#1#-#2#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft Exchange Server 20#1# #2#',
+			'group' : 1
+        }
+    ],
+    'powershell' : [
+        {
+            'regex' : 'PowerShell LTS v(.+)\(x64\)',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell LTS V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for PowerShell LTS V.#1#_x64',
+			'group' : 1
+        },
+        {
+            'regex' : 'PowerShell v(.+) \(x64\)',
+            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for PowerShell V.#1#_x64',
+			'group' : 1
+        }
+    ],
+    'etc' : [
+        {
+            'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Microsoft server operating system version #1#_x64 Cumulative update',
+			'group' : 1
+        },
+        {
+            'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for Microsoft server operating system version 21H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+			'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
+			'group' : 1
+        }
+    ]
+}
+
+totalRegexDicForMultiFile = {
     'dotnet' : [
         {
             'regex' : 'x64용 Windows 10 Version (\w{4})용 .NET Framework (.+) 누적',
@@ -1097,118 +1212,6 @@ totalRegexDic = {
             ],
 			'descriptionInEnglish' : '.NET #dv# Security Update for x64 Server',
 			'group' : 8
-        }
-    ],
-    'internet' : [
-        {
-            'regex' : 'x86 기반 시스템 Windows 7용 Internet Explorer 11',
-            'excel' : '	Q#ki# 7	#gi#	#ki#	0	W7	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 7 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 7 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows 7용 Internet Explorer 11',
-            'excel' : '	Q#ki# 7_x64	#gi#	#ki#	9	W7	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 7_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 7_x64 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x86 기반 시스템 Windows 8.1용 Internet Explorer 11',
-            'excel' : '	Q#ki# 81	#gi#	#ki#	0	W81	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 8.1 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 8.1 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows 8.1용 Internet Explorer 11',
-            'excel' : '	Q#ki# 81_x64	#gi#	#ki#	9	W81	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 8.1_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 8.1_x64 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows Server 2008 R2용 Internet Explorer 11',
-            'excel' : '	Q#ki# 28R2_x64	#gi#	#ki#	9	W28R2	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008R2_x64 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008R2_x64 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows Server 2012용 Internet Explorer 11',
-            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2012 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE11-Windows6.2-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2012 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows Server 2012 R2용 Internet Explorer 11',
-            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2	IE11	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2012R2 IE11)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2012R2 IE11)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x86 기반 시스템 Windows Server 2008용 Internet Explorer 9',
-            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008 IE9)',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템 Windows Server 2008용 Internet Explorer 9',
-            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28	IE9	#df1#	Internet Explorer용 누적 보안 업데이트 (Windows 2008_x64 IE9)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	IE9-Windows6.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Security Update for Internet Explorer (Windows 2008_x64 IE9)',
-			'group' : 1
-        }
-    ],
-    'azure' : [
-        {
-            'regex' : 'Cumulative Update for Azure Stack HCI  version 20H2 and  Windows Server 2019',
-            'excel' : '	Q#ki# ASHCI	#gi#	#ki#	99	W10		#df1#	Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Update for Azure Stack HCI, version 20H2 and Windows Server 2019 Datacenter- Azure Edition for x64-based Systems',
-			'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템용 Azure Stack HCI  version 20H2',
-            'excel' : '	Q#ki# 10_20H2	#gi#	#ki#	99	W10		#df1#	Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Servicing Stack Update for Azure Stack HCI, version 20H2 for x64-based Systems',
-			'group' : 1
-        },
-        {
-            'regex' : '누적 보안Hotpatch Azure Stack HCI  version (\w{4})용 및 Windows Server (\d{4}) Datacenter: Azure Edition x64',
-            'excel' : '	Q#ki# ASHCI	#gi#	#ki#	99	W10		#df1#	Cumulative Update for Azure Stack HCI, version #1# and Windows Server #2# Datacenter- Azure Edition for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Update for Azure Stack HCI, version #1# and Windows Server #2# Datacenter- Azure Edition for x64-based Systems',
-			'group' : 1
-        }
-    ],
-    'exchange' : [
-        {
-            'regex' : 'Exchange Server 20(\d{2}) (\w{4})',
-            'excel' : '	Q#ki# MSES2#1##2#_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10	MS_ES2#1#	#df1#	Microsoft Exchange Server용 보안 업데이트 (Microsoft Exchange Server 20#1# #2#)	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Exchange20#1#-#2#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-			'descriptionInEnglish' : 'Security update for Microsoft Exchange Server 20#1# #2#',
-			'group' : 1
-        }
-    ],
-    'powershell' : [
-        {
-            'regex' : 'PowerShell LTS v(.+)\(x64\)',
-            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell LTS V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-			'descriptionInEnglish' : 'Security update for PowerShell LTS V.#1#_x64',
-			'group' : 1
-        },
-        {
-            'regex' : 'PowerShell v(.+) \(x64\)',
-            'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
-			'descriptionInEnglish' : 'Security update for PowerShell V.#1#_x64',
-			'group' : 1
-        }
-    ],
-    'etc' : [
-        {
-            'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Microsoft server operating system version #1#_x64 Cumulative update',
-			'group' : 1
-        },
-        {
-            'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for Microsoft server operating system version 21H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
-			'group' : 1
         }
     ]
 }
