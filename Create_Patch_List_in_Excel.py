@@ -165,7 +165,7 @@ def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDot
             tempList[i] = int(tempList[i])
     return tempList, korList, enuList
 
-def addPatchRow(Classification, guid, kbid, des):
+def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
     global endPeriod
     regexList = pmsd.totalRegexDic[Classification]
     for regexDic in regexList:
@@ -192,14 +192,15 @@ def addPatchRow(Classification, guid, kbid, des):
             tempList.extend(korList + enuList)
             pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
             return
-            
         else:
             undecidedList.append([guid, kbid, des])
             return
-    undecidedList.append([guid, kbid, des])
+    if etcFlag:
+        addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag)
+    else:
+        undecidedList.append([guid, kbid, des])
 
-
-def addPatchRowForMultiFile(Classification, guid, kbid, des):
+def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False):
     global endPeriod
     regexList = pmsd.totalRegexDicForMultiFile[Classification]
     for regexDic in regexList:
@@ -261,7 +262,10 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des):
         else:
             undecidedList.append([guid, kbid, des])
             return
-    undecidedList.append([guid, kbid, des])
+    if etcFlag:
+        addPatchRowByFileName(Classification, guid, kbid, des)
+    else:
+        undecidedList.append([guid, kbid, des])
 
 def addPatchRowByFileName(Classification, guid, kbid, des):
     global endPeriod
@@ -335,7 +339,7 @@ def createPatchRowsByType(guid, kbid, des):
     elif 'Microsoft System Center' in des:
         addPatchRowByFileName('microsoft-system-center', guid, kbid, des)
     else:
-        addPatchRow('etc', guid, kbid, des)
+        addPatchRow('etc', guid, kbid, des, True)
 
 def readPatchListFromExcel():
     global endPeriod

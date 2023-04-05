@@ -1213,7 +1213,8 @@ totalRegexDicForMultiFile = {
 			'descriptionInEnglish' : '.NET #dv# Security Update for x64 Server',
 			'group' : 8
         }
-    ]
+    ],
+    'etc' : []
 }
 
 totalRegexDicByFileName = {
@@ -1444,7 +1445,8 @@ totalRegexDicByFileName = {
             ],
             'group' : 3
         }
-    ]
+    ],
+    'etc' : []
 }
 
 totalRowDic = {
