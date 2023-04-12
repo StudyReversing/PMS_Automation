@@ -354,21 +354,25 @@ def readPatchListFromExcel():
 def createPatchRows(patchList):
     global startPeriod
     global endPeriod
-    for i in reversed(range(patchList.shape[0])):
+    # for i in reversed(range(patchList.shape[0])):
+    for i in range(patchList.shape[0]):
         try:
             row_datetime = dt.datetime.strptime(patchList.day[i], '%Y-%m-%dT%H:%M:%SZ').date()
-            if row_datetime >= endPeriod:
-                continue
-            elif row_datetime < startPeriod:
-                break
-            else:
+            # if row_datetime >= endPeriod:
+            #     continue
+            # elif row_datetime < startPeriod:
+            #     break
+            # else:
+            if row_datetime >= startPeriod and row_datetime < endPeriod:
                 if validatePatchInfo(patchList.GUID[i], patchList.KBID[i], patchList.Des[i]):
                     createPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
                     newPatchList.append(patchList.GUID[i]+'\t'+str(int(patchList.KBID[i]))+'\n')
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
-            print('ValueError : ' ,e)
+            # print('ValueError : ' ,e)
+            None
         except TypeError as e:  # 날짜영역이 비어있는 경우
-            print('TypeError : ', e)
+            # print('TypeError : ', e)
+            None
 
     return None
 
