@@ -44,11 +44,18 @@ def getPatchDateByMonth(dateTime):
 def isPatchExclusion(des):
     return any(one in des for one in pmsd.patchExclusionList)
 
+def isNumber(str):
+    try:
+        float(str)
+        return True
+    except ValueError:
+        return False
+
 def validatePatchInfo(guid, kbid, des):
-    if not isinstance(kbid, float) or kbid == 0:
+    if (not isNumber(kbid)) or kbid == 0:
         exclusionPatchList.append([guid, kbid, des])
         return False
-    if not isinstance(des, str) or isPatchExclusion(des):
+    if (not isinstance(des, str)) or isPatchExclusion(des):
         exclusionPatchList.append([guid, kbid, des])
         return False
     if (guid+'\t'+str(int(kbid))+'\n') in previousPatchList:
@@ -124,9 +131,31 @@ def getDownloadInfo(guid):
 
     return result
 
+def getTargetProducts(guid):
+    url = 'https://catalog.update.microsoft.com/Search.aspx?q=' + guid
+    result = ''
+    try:
+        response = requests.request("POST", url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, "html.parser")
+            result = soup.find(attrs={'id' : guid+'_C2_R0'}).text
+        else:
+            None
+    except requests.exceptions.Timeout as e:
+        print("Timeout Error : ", e)
+    except requests.exceptions.ConnectionError as e:
+        print("Error Connecting : ", e)
+    except requests.exceptions.HTTPError as e:
+        print("Http Error : ", e)
+    except requests.exceptions.RequestException as e:
+        print("AnyException : ", e)
+
+    return result
+
 def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDotNet):
     # KBID, GUID, dateForm1 적용
-    excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d'))
+    excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y.%m'))
+    descriptionInEnglish = descriptionInEnglish.replace('#df2#', endPeriod.strftime('%Y.%m'))
     
     # 개별 변경 사항 적용
     if isinstance(result[0], str):
@@ -160,7 +189,7 @@ def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDot
     enuList = [descriptionInEnglish, refer, '']
 
     # 문자열 숫자 -> 정수로 형변환
-    for i in [3,4,10,11,15,17]:
+    for i in [0,3,4,10,11,15,17]:
         if tempList[i] != '':
             tempList[i] = int(tempList[i])
     return tempList, korList, enuList
@@ -201,7 +230,6 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
         undecidedList.append([guid, kbid, des])
 
 def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False):
-    global endPeriod
     regexList = pmsd.totalRegexDicForMultiFile[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
@@ -268,7 +296,6 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
         undecidedList.append([guid, kbid, des])
 
 def addPatchRowByFileName(Classification, guid, kbid, des):
-    global endPeriod
     regexList = pmsd.totalRegexDicByFileName[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
@@ -311,6 +338,35 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
             return
     undecidedList.append([guid, kbid, des])
 
+def addPatchRowForMalwareRemoveTool(guid, kbid, des):
+    regexList = pmsd.malwareRemoveToolRegexList
+    for regexDic in regexList:
+        regexPattern = re.compile(regexDic['regex'])
+        result = re.findall(regexPattern, des)
+        length = len(result)
+        if length == 0:
+            continue
+        elif length == 1:
+            targetProductsStr = getTargetProducts(guid)
+            for one in regexDic['targetProducts']:
+                if one['targetProduct'] in targetProductsStr:
+                    excel = one['excel']
+                    descriptionInEnglish = one['descriptionInEnglish']
+
+                    tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False)
+
+                    # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
+                    tempList.extend([des, 1])
+
+                    # 최종행 저장
+                    tempList.extend(korList + enuList)
+                    pmsd.totalRowDic['malware-remove-tool'][1].append(tempList)
+                    return
+    undecidedList.append([guid, kbid, des])
+
+def sortPatchRowForMalwareRemoveTool():
+    pmsd.totalRowDic['malware-remove-tool'][1].sort(key=lambda x:x[0])
+
 def createPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         addPatchRowForMultiFile('dotnet', guid, kbid, des)
@@ -322,7 +378,9 @@ def createPatchRowsByType(guid, kbid, des):
     elif 'Internet' in des:
         addPatchRow('internet', guid, kbid, des)
     elif 'Windows' in des:
-        if any(one in des for one in ['누적', 'Cumulative']):
+        if '악성' in des:
+            addPatchRowForMalwareRemoveTool(guid, kbid, des)
+        elif any(one in des for one in ['누적', 'Cumulative']):
             addPatchRow('windows-cumulative', guid, kbid, des)
         elif any(one in des for one in ['보안', 'Security']):
             addPatchRow('windows-security', guid, kbid, des)
@@ -439,6 +497,7 @@ def main():
 
     patchList = readPatchListFromExcel()
     createPatchRows(patchList)
+    sortPatchRowForMalwareRemoveTool()
     writePatchListToExcel()
 
     writePreviousPatchListTxt()

@@ -1449,6 +1449,39 @@ totalRegexDicByFileName = {
     'etc' : []
 }
 
+malwareRemoveToolRegexList = [
+    {
+        'regex' : 'Windows 악성 소프트웨어 제거 도구 x64 - v(.+)\(',
+        'targetProducts' : [
+            {
+                'targetProduct' : 'Windows Server 2012',
+                'excel' : '99996	Q890830 MALICIOUS_x64	#gi#	890830	9	W8,W81,W10,W212,W212R2,W216,W11	MS_MAL	#df1#	Microsoft 악성 소프트웨어 제거도구 (#df2#)	https://support.microsoft.com/kb/890830	1	0	Microsoft			0	Windows-KB890830-x64-V#1#-KOR.exe	1	 /q /norestart	!pass!	!pass!	!pass!',
+                'descriptionInEnglish' : 'Microsoft Malicious Software Removal Tool (#df2#)'
+            },
+            {
+                'targetProduct' : 'Windows Server 2008 R2',
+                'excel' : '99998	Q890830 MALICIOUS_x64	#gi#	890830	9	WVT,W28,W7,W28R2	MS_MAL	#df1#	Microsoft 악성 소프트웨어 제거도구 (#df2#)	https://support.microsoft.com/kb/890830	1	0	Microsoft			0	Windows-KB890830-x64-V#1#-KOR.exe	1	 /q /norestart	!pass!	!pass!	!pass!',
+                'descriptionInEnglish' : 'Microsoft Malicious Software Removal Tool (#df2#)'
+            }
+        ]
+    },
+    {
+        'regex' : 'Windows 악성 소프트웨어 제거 도구 - v(.+)\(',
+        'targetProducts' : [
+            {
+                'targetProduct' : 'Windows 8.1',
+                'excel' : '99997	Q890830 MALICIOUS	#gi#	890830	0	W8,W81,W10,W11	MS_MAL	#df1#	Microsoft 악성 소프트웨어 제거도구 (#df2#)	https://support.microsoft.com/kb/890830	1	0	Microsoft			0	Windows-KB890830-V#1#-KOR.exe	1	 /q /norestart	!pass!	!pass!	!pass!',
+                'descriptionInEnglish' : 'Microsoft Malicious Software Removal Tool (#df2#)'
+            },
+            {
+                'targetProduct' : 'Windows 7',
+                'excel' : '99999	Q890830 MALICIOUS	#gi#	890830	0	WXP,W23,WVT,W28,W7	MS_MAL	#df1#	Microsoft 악성 소프트웨어 제거도구 (#df2#)	https://support.microsoft.com/kb/890830	1	0	Microsoft			0	Windows-KB890830-V#1#-KOR.exe	1	 /q /norestart	!pass!	!pass!	!pass!',
+                'descriptionInEnglish' : 'Microsoft Malicious Software Removal Tool (#df2#)'
+            }
+        ]
+    }
+]
+
 totalRowDic = {
     'windows-cumulative' : {},
     'windows-security' : {},
@@ -1462,5 +1495,6 @@ totalRowDic = {
     'powershell' : {},
     'sql-server' : {},
     'microsoft-system-center' : {},
-    'etc' : {}
+    'etc' : {},
+    'malware-remove-tool' : {1:[]}
 }
