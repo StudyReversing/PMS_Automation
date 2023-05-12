@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 import PMS_Data as pmsd
 import time
+from tqdm import tqdm
 
 undecidedList = []
 
@@ -413,7 +414,7 @@ def createPatchRows(patchList):
     global startPeriod
     global endPeriod
     # for i in reversed(range(patchList.shape[0])):
-    for i in range(patchList.shape[0]):
+    for i in tqdm(range(patchList.shape[0])):
         try:
             row_datetime = dt.datetime.strptime(patchList.day[i], '%Y-%m-%dT%H:%M:%SZ').date()
             # if row_datetime >= endPeriod:
@@ -508,4 +509,4 @@ def main():
 startTime = time.time()
 main()
 endTime = time.time()
-print(f'실행시간 : {endTime-startTime:.3f} sec')
+print(f'소요시간 : {endTime-startTime:.3f} sec')
