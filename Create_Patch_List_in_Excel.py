@@ -132,13 +132,13 @@ def getDownloadInfo(guid):
     return result
 
 def getTargetProducts(guid):
-    url = 'https://catalog.update.microsoft.com/Search.aspx?q=' + guid
+    url = 'https://catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=' + guid
     result = ''
     try:
         response = requests.request("POST", url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
-            result = soup.find(attrs={'id' : guid+'_C2_R0'}).text
+            result = soup.find(attrs={'id':'productsDiv'}).contents[2]
         else:
             None
     except requests.exceptions.Timeout as e:
@@ -464,6 +464,9 @@ def writePatchListToExcel():
     exclusion_ws.title = 'exclusion'
     for one in exclusionPatchList:
         exclusion_ws.append(one)
+
+    exclusion_ws = wb.create_sheet()
+    exclusion_ws.title = 'remove'
 
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     # DEFAULT_FONT.name = '굴림체'
