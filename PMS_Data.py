@@ -1482,6 +1482,117 @@ malwareRemoveToolRegexList = [
     }
 ]
 
+passiveUpdateDic = {
+    'chrome' : [
+        {
+            'excel' : '	Q25430 GCR		0	0	W7,W8,W81,W10	G_CR	#df1#	Google Chrome (#v# 32bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Google Chrome (#v# 32bit)',
+            'fileVersionHistory' : '	%ProgramFiles%\\Google\\Chrome\\Application	chrome.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q25430 GCR_x64		0	9	W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11	G_CR	#df1#	Google Chrome (#v# 64bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup64_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Google Chrome (#v# 64bit)',
+            'fileVersionHistory' : '	^CHROME_64^	chrome.exe	0	#v#	-1'
+        }
+    ],
+    'edge' : [
+        {
+            'excel' : '	Q37990 MS_EDGE		0	0	W7,W8,W81,W10	MS_EDGE	#df1#	Microsoft Edge (#v# 32bit)	https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnotes-security	0	#ri#	Microsoft			0	MicrosoftEdgeEnterprise86_#v#-KOR.msi	0	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Microsoft Edge (#v# 32bit)',
+            'fileVersionHistory' : '	%ProgramFiles%\\Microsoft\\Edge\\Application	msedge.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q37990 MS_EDGE_x64		0	9	W7,W28R2,W8,W81,W212,W212R2,W10,W216,W2022	MS_EDGE	#df1#	Microsoft Edge (#v# 64bit)	https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnotes-security	0	#ri#	Microsoft			0	MicrosoftEdgeEnterprise64_#v#-KOR.msi	0	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Microsoft Edge (#v# 64bit)',
+            'fileVersionHistory' : '	%ProgramFiles%\\Microsoft\\Edge\\Application	msedge.exe	0	#v#	-1'
+        }
+    ],
+    'adobe' : [
+        {
+            'excel' : '	Q10138 ABRDC1700920044		0	0	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W11,W2022	A_RDC	#df1#	Acrobat Reader DC 보안 업데이트 (#v#.0_32bit)	http://www.adobe.com/support/downloads/product.jsp?product=10&platform=Windows	0	#ri#	Adobe			1	AcroRdrDCUpd#vwod#-KOR.msp	0	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Acrobat Reader DC Security Update (#v#.0_32bit)',
+            'fileVersionHistory' : '	%ProgramFiles%\\Adobe\\Acrobat Reader DC\\Reader	AcroRd32.dll	0	#v#.0	-1'
+        },
+        {
+            'excel' : '	Q10138 ABRDC1700920044_x64		0	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216,W11,W2022	A_RDC	#df1#	Acrobat Reader DC 보안 업데이트 (#v#.0_64bit)	http://www.adobe.com/support/downloads/product.jsp?product=10&platform=Windows	0	#ri#	Adobe			1	AcroRdrDCx64Upd#vwod#-KOR.msp	0	 /quiet /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Acrobat Reader DC Security Update (#v#.0_64bit)',
+            'fileVersionHistory' : '	^ACROBATDC_64^	Acrobat.dll	0	#v#.0	-1'
+        }
+    ],
+    'hoffice2022' : [
+        {
+            'excel' : '	Q40780 HOFFICE2022		0	0	WXP,W23,WVT,W28,W7,W8,W81,W10,W11,W2022	H_HOF222	#df1#	한컴오피스 보안 업데이트(hwp2022_#v# 32bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2022Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2022_#v# 32bit)',
+            'fileVersionHistory' : '	^HANOFFICE222_32^HOffice120\\Bin	hwp.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q40181 HOFFICE2022_x64		0	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	H_HOF222	#df1#	한컴오피스 보안 업데이트(hwp2022_#v# 64bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2022Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2022_#v# 64bit)',
+            'fileVersionHistory' : '	^HANOFFICE222_64^HOffice120\\Bin	hwp.exe	0	#v#	-1'
+        }
+    ],
+    'hoffice2020' : [
+        {
+            'excel' : '	Q10132 HOFFICE2020		0	0	WXP,W23,WVT,W28,W7,W8,W81,W10,W11,W2022	H_HOF220	#df1#	한컴오피스 보안 업데이트(hwp2020_#v# 32bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2020Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2020_#v# 32bit)',
+            'fileVersionHistory' : '	^HANOFFICE220_32^HOffice110\\Bin	Hwp.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q10132 HOFFICE2020_x64		0	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	H_HOF220	#df1#	한컴오피스 보안 업데이트(hwp2020_#v# 64bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2020Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2020_#v# 64bit)',
+            'fileVersionHistory' : '	^HANOFFICE220_64^HOffice110\\Bin	Hwp.exe	0	#v#	-1'
+        }
+    ],
+    'hoffice2018' : [
+        {
+            'excel' : '	Q10132 HOFFICE2018		0	0	WXP,W23,WVT,W28,W7,W8,W81,W10,W11,W2022	H_HOF218	#df1#	한컴오피스 보안 업데이트(hwp2018_#v# 32bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2018Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2018_#v# 32bit)',
+            'fileVersionHistory' : '	^HANOFFICE218_32^HOffice100\\Bin	Hwp.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q10132 HOFFICE2018_x64		0	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	H_HOF218	#df1#	한컴오피스 보안 업데이트(hwp2018_#v# 64bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOffice2018Update_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwp2018_#v# 64bit)',
+            'fileVersionHistory' : '	^HANOFFICE218_64^HOffice100\\Bin	Hwp.exe	0	#v#	-1'
+        }
+    ],
+    'hofficeneo' : [
+        {
+            'excel' : '	Q10132 HOFFICENEO		0	0	WXP,W23,WVT,W28,W7,W8,W81,W10,W11,W2022	H_HOFNEO	#df1#	한컴오피스 보안 업데이트(hwpNEO_#v# 32bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOfficeNEOUpdate_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwpNEO_#v# 32bit)',
+            'fileVersionHistory' : '	^HANOFFICENEO_32^HOffice96\\Bin	Hwp.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q10132 HOFFICENEO_x64		0	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	H_HOFNEO	#df1#	한컴오피스 보안 업데이트(hwpNEO_#v# 64bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HOfficeNEOUpdate_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Office Security Update(hwpNEO_#v# 64bit)',
+            'fileVersionHistory' : '	^HANOFFICENEO_64^HOffice96\\Bin	Hwp.exe	0	#v#	-1'
+        }
+    ],
+    'hwpneo' : [
+        {
+            'excel' : '	Q10132 HWPNEO		0	0	WXP,W23,WVT,W28,W7,W8,W81,W10,W11,W2022	H_HWPNEO	#df1#	한글 보안 업데이트(hwpNEO_#v# 32bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HwpNEOUpdate_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Security Update(hwpNEO_#v# 32bit)',
+            'fileVersionHistory' : '	^HANHwpNEO_32^HOffice96\\Bin	Hwp.exe	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q10132 HWPNEO_x64		0	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	H_HWPNEO	#df1#	한글 보안 업데이트(hwpNEO_#v# 64bit)	http://www.hancom.co.kr/downLoad.downView.do	0	#ri#	hancom			0	HwpNEOUpdate_#v#-KOR.exe	0	 /verysilent /norestart	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'Hancom Security Update(hwpNEO_#v# 64bit)',
+            'fileVersionHistory' : '	^HANHwpNEO_64^HOffice96\\Bin	Hwp.exe	0	#v#	-1'
+        }
+    ],
+    'java' : [
+        {
+            'excel' : '	Q40760 ORACLE_JRE8_x86		0	0	W7,W8,W81,W10,W11	JRE8	#df1#	JRE 8 (#v# 32bit)	https://java.com/en/download/	0	#ri#	Oracle			0	jre-#jv#-windows-x32-KOR.exe	0	 /s	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'JRE 8 (#v# 32bit)',
+            'fileVersionHistory' : '	^JRE8_32^\\bin	java.dll	0	#v#	-1'
+        },
+        {
+            'excel' : '	Q40761 ORACLE_JRE8_x64		0	9	W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022	JRE8	#df1#	JRE 8 (#v# 64bit)	https://java.com/en/download/	0	#ri#	Oracle			0	jre-#jv#-windows-x64-KOR.exe	0	 /s	!pass!	!pass!	!pass!',
+            'descriptionInEnglish' : 'JRE 8 (#v# 64bit)',
+            'fileVersionHistory' : '	^JRE8_64^\\bin	java.dll	0	#v#	-1'
+        }
+    ]
+}
+
 totalRowDic = {
     'windows-cumulative' : {},
     'windows-security' : {},

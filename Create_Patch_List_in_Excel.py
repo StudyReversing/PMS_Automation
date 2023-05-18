@@ -16,6 +16,8 @@ undecidedList = []
 startPeriod = None
 endPeriod = None
 
+previousIDDic = {}
+passiveUpdateVersionDic = {}
 previousPatchList = []
 importantSet = set()
 criticalSet = set()
@@ -63,6 +65,25 @@ def validatePatchInfo(guid, kbid, des):
         duplicationPatchList.append([guid, kbid, des])
         return False
     return True
+
+def makePreviousIDDic():
+    global previousIDDic
+    global startPeriod
+    
+    f = open('./' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Passive_Update.txt', 'r')
+    line = f.readline()
+    tempList = line.split('=')
+    previousIDDic = eval(tempList[1])
+    
+
+def makePassiveUpdateVersionDic():
+    global passiveUpdateVersionDic
+
+    f = open('./Passive_Update.txt', 'r')
+    for one in f.readlines():
+        tempList = one.split('=')
+        passiveUpdateVersionDic[tempList[0]] = tempList[1].strip()
+
 
 def makePreviousPatchList():
     global previousPatchList
@@ -498,6 +519,8 @@ def main():
 
     makeSeveritySet()
     makePreviousPatchList()
+    makePreviousIDDic()
+    makePassiveUpdateVersionDic()
 
     patchList = readPatchListFromExcel()
     createPatchRows(patchList)
