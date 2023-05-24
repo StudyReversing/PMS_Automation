@@ -1594,6 +1594,7 @@ passiveUpdateDic = {
 }
 
 totalRowDic = {
+    'passive' : {},
     'windows-cumulative' : {},
     'windows-security' : {},
     'windows-etc' : {},

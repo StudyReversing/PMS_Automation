@@ -17,6 +17,7 @@ startPeriod = None
 endPeriod = None
 
 previousIDDic = {}
+passiveIDDic = {}
 passiveUpdateVersionDic = {}
 previousPatchList = []
 importantSet = set()
@@ -24,6 +25,8 @@ criticalSet = set()
 exclusionPatchList = []
 duplicationPatchList = []
 newPatchList = []
+totalFileVersionHistoryDic = {}
+
 
 def getPatchPeriod():
     global startPeriod
@@ -32,6 +35,7 @@ def getPatchPeriod():
     beforeOneMonth = today - relativedelta(months=1)
     startPeriod = getPatchDateByMonth(beforeOneMonth)
     endPeriod = getPatchDateByMonth(today)
+
 
 def getPatchDateByMonth(dateTime):
     patchDate = dateTime.replace(day=1)
@@ -44,8 +48,10 @@ def getPatchDateByMonth(dateTime):
 
     return patchDate
 
+
 def isPatchExclusion(des):
     return any(one in des for one in pmsd.patchExclusionList)
+
 
 def isNumber(str):
     try:
@@ -53,6 +59,7 @@ def isNumber(str):
         return True
     except ValueError:
         return False
+
 
 def validatePatchInfo(guid, kbid, des):
     if (not isNumber(kbid)) or kbid == 0:
@@ -65,6 +72,7 @@ def validatePatchInfo(guid, kbid, des):
         duplicationPatchList.append([guid, kbid, des])
         return False
     return True
+
 
 def makePreviousIDDic():
     global previousIDDic
@@ -80,9 +88,10 @@ def makePassiveUpdateVersionDic():
     global passiveUpdateVersionDic
 
     f = open('./Passive_Update.txt', 'r')
-    for one in f.readlines():
-        tempList = one.split('=')
-        passiveUpdateVersionDic[tempList[0]] = tempList[1].strip()
+    for line in f.readlines():
+        if '=' in line:
+            tempList = line.split('=')
+            passiveUpdateVersionDic[tempList[0]] = tempList[1].strip()
 
 
 def makePreviousPatchList():
@@ -115,6 +124,7 @@ def makeSeveritySet():
             
     importantSet = importantSet.difference(criticalSet)
 
+
 def setSeverity(excel, kbid):
     severityStr = ''
     if kbid in criticalSet:
@@ -122,6 +132,7 @@ def setSeverity(excel, kbid):
     elif kbid in importantSet:
         severityStr = '0'
     return excel.replace('#s#', severityStr)
+
 
 def getDownloadInfo(guid):
     url = 'https://catalog.update.microsoft.com/DownloadDialog.aspx'
@@ -153,6 +164,7 @@ def getDownloadInfo(guid):
 
     return result
 
+
 def getTargetProducts(guid):
     url = 'https://catalog.update.microsoft.com/ScopedViewInline.aspx?updateid=' + guid
     result = ''
@@ -173,6 +185,7 @@ def getTargetProducts(guid):
         print("AnyException : ", e)
 
     return result
+
 
 def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDotNet):
     # KBID, GUID, dateForm1 적용
@@ -216,6 +229,7 @@ def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDot
             tempList[i] = int(tempList[i])
     return tempList, korList, enuList
 
+
 def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
     global endPeriod
     regexList = pmsd.totalRegexDic[Classification]
@@ -250,6 +264,7 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
         addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag)
     else:
         undecidedList.append([guid, kbid, des])
+
 
 def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False):
     regexList = pmsd.totalRegexDicForMultiFile[Classification]
@@ -317,6 +332,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
     else:
         undecidedList.append([guid, kbid, des])
 
+
 def addPatchRowByFileName(Classification, guid, kbid, des):
     regexList = pmsd.totalRegexDicByFileName[Classification]
     for regexDic in regexList:
@@ -360,6 +376,7 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
             return
     undecidedList.append([guid, kbid, des])
 
+
 def addPatchRowForMalwareRemoveTool(guid, kbid, des):
     regexList = pmsd.malwareRemoveToolRegexList
     for regexDic in regexList:
@@ -386,10 +403,12 @@ def addPatchRowForMalwareRemoveTool(guid, kbid, des):
                     return
     undecidedList.append([guid, kbid, des])
 
+
 def sortPatchRowForMalwareRemoveTool():
     pmsd.totalRowDic['malware-remove-tool'][1].sort(key=lambda x:x[0])
 
-def createPatchRowsByType(guid, kbid, des):
+
+def createMSPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
         addPatchRowForMultiFile('dotnet', guid, kbid, des)
     elif 'Azure' in des:
@@ -421,6 +440,7 @@ def createPatchRowsByType(guid, kbid, des):
     else:
         addPatchRow('etc', guid, kbid, des, True)
 
+
 def readPatchListFromExcel():
     global endPeriod
     xlsPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Result.csv'
@@ -430,8 +450,9 @@ def readPatchListFromExcel():
         sys.exit()
     else:
         return patchList
-    
-def createPatchRows(patchList):
+
+
+def createMSPatchRows(patchList):
     global startPeriod
     global endPeriod
     # for i in reversed(range(patchList.shape[0])):
@@ -445,7 +466,7 @@ def createPatchRows(patchList):
             # else:
             if row_datetime >= startPeriod and row_datetime < endPeriod:
                 if validatePatchInfo(patchList.GUID[i], patchList.KBID[i], patchList.Des[i]):
-                    createPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
+                    createMSPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
                     newPatchList.append(patchList.GUID[i]+'\t'+str(int(patchList.KBID[i]))+'\n')
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             # print('ValueError : ' ,e)
@@ -453,24 +474,111 @@ def createPatchRows(patchList):
         except TypeError as e:  # 날짜영역이 비어있는 경우
             # print('TypeError : ', e)
             None
-
     return None
+
+
+def commonPassivePatchReplace(dic, version, replacementID, numID):
+    excel = dic['excel'].replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#v#', version).replace('#ri#', str(replacementID))
+    descriptionInEnglish = endPeriod.strftime('%B, %Y ') + dic['descriptionInEnglish'].replace('#v#', version)
+    fileVersionHistory = dic['fileVersionHistory'].replace('#v#', version)
+    
+    excelList = excel.split('\t')
+    excelList[0] = numID if numID != 0 else ''
+    excelList[8] = endPeriod.strftime('%Y년 %m월, ') + excelList[8]
+    name = excelList[1]
+    descr_kor = excelList[8]
+    refer = excelList[9]
+    korList = [name, descr_kor, refer, '']
+    enuList = [descriptionInEnglish, refer, '']
+    for i in [0,3,4,10,11,15,17]:
+        if excelList[i] != '':
+            excelList[i] = int(excelList[i])
+    fileVersionHistoryList = fileVersionHistory.split('\t')
+    fileVersionHistoryList[0] = numID if numID != 0 else ''
+    for i in [0,3,5]:
+        if fileVersionHistoryList[i] != '':
+            fileVersionHistoryList[i] = int(fileVersionHistoryList[i])
+    return excelList, korList, enuList, fileVersionHistoryList
+
+def makePassiveIDDic(key, value):
+    if key not in passiveIDDic:
+        passiveIDDic[key] = []
+    passiveIDDic[key].append(value)
+        
+
+def createPassivePatchRows():
+    groupDic = {'chrome':1, 'edge':2, 'adobe':3, 'hoffice2022':4, 'hoffice2020':4, 'hoffice2018':4, 'hofficeneo':4, 'hwpneo':4, 'java':5}
+    lastID = previousIDDic['last']
+    haslastID = lastID != 0
+    hofficeFlag = False
+    for key, value in passiveUpdateVersionDic.items():
+        if value != '':
+            if key == 'adobe':
+                lastID = (lastID//10 + 1) * 10
+                tempList = pmsd.passiveUpdateDic[key]
+                for i in range(len(tempList)):
+                    lastID = lastID+i if haslastID else 0
+                    excelList, korList, enuList, fileVersionHistoryList = commonPassivePatchReplace(tempList[i], value, previousIDDic[key][i], lastID)
+                    excelList[16] = excelList[16].replace('#vwod#', value.replace('.', ''))
+                    makePassiveIDDic(key, lastID)
+                    if groupDic[key] not in pmsd.totalRowDic['passive']:
+                        pmsd.totalRowDic['passive'][groupDic[key]] = []
+                        totalFileVersionHistoryDic[groupDic[key]] = []
+                    excelList.extend(['',''] + korList + enuList)
+                    pmsd.totalRowDic['passive'][groupDic[key]].append(excelList)
+                    totalFileVersionHistoryDic[groupDic[key]].append(fileVersionHistoryList)
+            elif key == 'java':
+                lastID = (lastID//10 + 1) * 10
+                tempList = pmsd.passiveUpdateDic[key]
+                versionList = value.split('/')
+                for i in range(len(tempList)):
+                    lastID = lastID+i if haslastID else 0
+                    excelList, korList, enuList, fileVersionHistoryList = commonPassivePatchReplace(tempList[i], versionList[1], previousIDDic[key][i], lastID)
+                    excelList[16] = excelList[16].replace('#jv#', versionList[0])
+                    makePassiveIDDic(key, lastID)
+                    if groupDic[key] not in pmsd.totalRowDic['passive']:
+                        pmsd.totalRowDic['passive'][groupDic[key]] = []
+                        totalFileVersionHistoryDic[groupDic[key]] = []
+                    excelList.extend(['',''] + korList + enuList)
+                    pmsd.totalRowDic['passive'][groupDic[key]].append(excelList)
+                    totalFileVersionHistoryDic[groupDic[key]].append(fileVersionHistoryList)
+            else:
+                if not hofficeFlag:
+                    lastID = (lastID//10 + 1) * 10
+                    if key in ['hoffice2022', 'hoffice2020', 'hoffice2018', 'hofficeneo', 'hwpneo']:
+                        hofficeFlag = True
+                else:
+                    lastID = lastID + 1
+                tempList = pmsd.passiveUpdateDic[key]
+                for i in range(len(tempList)):
+                    lastID = lastID+i if haslastID else 0
+                    excelList, korList, enuList, fileVersionHistoryList = commonPassivePatchReplace(tempList[i], value, previousIDDic[key][i], lastID)
+                    makePassiveIDDic(key, lastID)
+                    if groupDic[key] not in pmsd.totalRowDic['passive']:
+                        pmsd.totalRowDic['passive'][groupDic[key]] = []
+                        totalFileVersionHistoryDic[groupDic[key]] = []
+                    excelList.extend(['',''] + korList + enuList)
+                    pmsd.totalRowDic['passive'][groupDic[key]].append(excelList)
+                    totalFileVersionHistoryDic[groupDic[key]].append(fileVersionHistoryList)
+
 
 def writePatchListToExcel():
     global endPeriod
-    rowCount = 0
+    normalRowCount = 0
+    fileVerHistoryRowCount = 0
     wb = Workbook()
     normal_ws = wb.active
     normal_ws.title = 'normal'
-    for dic in pmsd.totalRowDic.values():
-        dic = dict(sorted(dic.items()))
-        for list in dic.values():
-            list.sort(key=lambda x:x[8])
+    for key, value in pmsd.totalRowDic.items():
+        value = dict(sorted(value.items()))
+        for list in value.values():
+            if key != 'passive':
+                list.sort(key=lambda x:x[8])
             for one in list:
                 normal_ws.append(one)
             normal_ws.append([])
             normal_ws.append([])
-            rowCount += len(list) + 2
+            normalRowCount += len(list) + 2
 
     undecided_ws = wb.create_sheet()
     undecided_ws.title = 'undecided'
@@ -487,22 +595,43 @@ def writePatchListToExcel():
     for one in exclusionPatchList:
         exclusion_ws.append(one)
 
-    exclusion_ws = wb.create_sheet()
-    exclusion_ws.title = 'remove'
+    remove_ws = wb.create_sheet()
+    remove_ws.title = 'remove'
+
+    file_ver_history_ws = wb.create_sheet()
+    file_ver_history_ws.title = 'file_ver_history'
+    for list in totalFileVersionHistoryDic.values():
+        for one in list:
+            file_ver_history_ws.append(one)
+        file_ver_history_ws.append([])
+        file_ver_history_ws.append([])
+        fileVerHistoryRowCount += len(list) + 2
 
     xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     # DEFAULT_FONT.name = '굴림체'
     DEFAULT_FONT.size = '10'
-    for row in normal_ws['1:'+ str(rowCount)]:
+    for row in normal_ws['1:' + str(normalRowCount)]:
+        for cell in row:
+            cell.font = Font(name='굴림체')
+    for row in file_ver_history_ws['1:' + str(fileVerHistoryRowCount)]:
         for cell in row:
             cell.font = Font(name='굴림체')
     wb.save(xlsxPath)
+
 
 def writePreviousPatchListTxt():
     f = open('./' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt', 'w')
     totalPatchList = previousPatchList + newPatchList
     for one in totalPatchList:
         f.write(one)
+    f.close()
+
+def writePreviousPassiveUpateTxt():
+    f = open('./' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Passive_Update.txt', 'w')
+    for key, value in passiveIDDic.items():
+        previousIDDic[key] = value
+    previousIDDic['last'] = 0
+    f.write('previousID=' + str(previousIDDic))
     f.close()
 
 def main():
@@ -522,12 +651,14 @@ def main():
     makePreviousIDDic()
     makePassiveUpdateVersionDic()
 
+    createPassivePatchRows()
     patchList = readPatchListFromExcel()
-    createPatchRows(patchList)
+    createMSPatchRows(patchList)
     sortPatchRowForMalwareRemoveTool()
-    writePatchListToExcel()
 
+    writePatchListToExcel()
     writePreviousPatchListTxt()
+    writePreviousPassiveUpateTxt()
 
 startTime = time.time()
 main()
