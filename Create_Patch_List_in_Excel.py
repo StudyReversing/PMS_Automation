@@ -299,13 +299,13 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
                             if isinstance(result[0], str):
                                 excelForFileName = excelForFileName.replace('#1#', result[0])
                             else:
-                                for i in range(len(result[0])):
-                                    excelForFileName = excelForFileName.replace('#'+str(i+1)+'#', result[0][i])
+                                for j in range(len(result[0])):
+                                    excelForFileName = excelForFileName.replace('#'+str(j+1)+'#', result[0][j])
                             if isinstance(resultForFileName[0], str):
                                 excelForFileName = excelForFileName.replace('#f1#', resultForFileName[0])
                             else:
-                                for i in range(len(resultForFileName[0])):
-                                    excelForFileName = excelForFileName.replace('#f'+str(i+1)+'#', resultForFileName[0][i])
+                                for j in range(len(resultForFileName[0])):
+                                    excelForFileName = excelForFileName.replace('#f'+str(j+1)+'#', resultForFileName[0][j])
                             copyList[16] = excelForFileName
                     #최종행 저장
                     if Classification not in pmsd.totalRowDic:
