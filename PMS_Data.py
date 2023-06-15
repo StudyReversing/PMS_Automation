@@ -1358,89 +1358,110 @@ totalRegexDicByFileName = {
     ],
     'microsoft-system-center' : [
         {
-            'regex' : 'Microsoft System Center 2022 용',
+            'regex' : 'Microsoft System Center 2022 용 업데이트 롤업 (\d{1,2})',
             'fileName' : [
                 {
                     'regex' : 'kb(\d{7})_vmmserver_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 용 업데이트 롤업 1 - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_vmmserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Virtual Machine Manager'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_vmmserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2022 - Virtual Machine Manager'
                 },
                 {
                     'regex' : 'kb(\d{7})_adminconsole_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	0	W216,W219		#df1#	Microsoft System Center 2022 용 업데이트 롤업 1 - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_AdminConsole-x84-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Virtual Machine Manager'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_AdminConsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2022 - Virtual Machine Manager'
                 }
             ],
             'group' : 1
         },
         {
-            'regex' : 'Microsoft System Center 2022 - Operations Manager',
+            'regex' : 'Microsoft System Center 2019 용 업데이트 롤업 (\d{1,2})',
+            'fileName' : [
+                {
+                    'regex' : 'kb(\d{7})_vmmserver_',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2019 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_vmmserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2019 - Virtual Machine Manager'
+                },
+                {
+                    'regex' : 'kb(\d{7})_adminconsole_i386',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	0	W216,W219		#df1#	Microsoft System Center 2019 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_AdminConsole-x86-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2019 - Virtual Machine Manager'
+                },
+                {
+                    'regex' : 'kb(\d{7})_adminconsole_amd64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2019_x64 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_AdminConsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2019_x64 - Virtual Machine Manager'
+                }
+            ],
+            'group' : 1
+        },
+        {
+            'regex' : 'Microsoft System Center 2022 - Operations Manager (.+) 업데이트 롤업 (\d{1,2})',
             'fileName' : [
                 {
                     'regex' : 'kb(\d{7})-amd64-gateway_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager Geteway 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Gateway-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Operations Manager Geteway'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager Geteway 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Gateway-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022 - Operations Manager Geteway'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-agent_',
-                    'excel' : '	Q#ki# MSSC222_x64	#gi#	#ki#	9	W216,W10,W212R2,W212,W219		#df1#	Microsoft System Center 2022_x64 - Operations Manager Agent 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Agent-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022_x64 - Operations Manager Agent'
+                    'excel' : '	Q#ki# MSSC222_x64	#gi#	#ki#	9	W216,W10,W212R2,W212,W219		#df1#	Microsoft System Center 2022_x64 - Operations Manager Agent 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Agent-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022_x64 - Operations Manager Agent'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-console_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 - Operations Manager Console 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Console-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Operations Manager Console'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 - Operations Manager Console 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Console-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022 - Operations Manager Console'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-reporting_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager Reportiong 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Reporting-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Operations Manager Reportiong'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager Reportiong 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Reporting-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022 - Operations Manager Reportiong'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-server_',
-                    'excel' : '	Q#ki# MSSC222_x64	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022_x64 - Operations Manager Server 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Server-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022_x64 - Operations Manager Server'
+                    'excel' : '	Q#ki# MSSC222_x64	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022_x64 - Operations Manager Server 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-Server-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022_x64 - Operations Manager Server'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-webconsole_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 - Operations Manager WebConsole 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-WebConsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Operations Manager WebConsole'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 - Operations Manager WebConsole 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-WebConsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022 - Operations Manager WebConsole'
                 },
                 {
                     'regex' : 'kb(\d{7})-amd64-acs_',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager ACS 업데이트 롤업 1	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-ACS-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for Microsoft System Center 2022 - Operations Manager ACS'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W219		#df1#	Microsoft System Center 2022 - Operations Manager ACS 업데이트 롤업 #2#	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-ACS-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #2# for Microsoft System Center 2022 - Operations Manager ACS'
                 }
             ],
             'group' : 2
         },
         {
-            'regex' : 'Update Rollup 1 for Microsoft System Center 2022',
+            'regex' : 'Update Rollup (\d{1,2}) for Microsoft System Center 2022',
             'fileName' : [
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookserver_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup 1 for System Center 2022_x64 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for System Center 2022_x64 - Orchestrator Runbook Server'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Server'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookdesigner_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup 1 for System Center 2022_x64 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for System Center 2022_x64 - Orchestrator Runbook Designer'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Designer'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webconsole_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup 1 for System Center 2022_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for System Center 2022_x64 - Orchestrator Web Console'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Web Console'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.managementserver_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup 1 for System Center 2022_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for System Center 2022_x64 - Orchestrator Management Server'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Management Server'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webapi_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup 1 for System Center 2022_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
-                    'descriptionInEnglish' : 'Update Rollup 1 for System Center 2022_x64 - Orchestrator Web API'
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Web API'
                 }
             ],
             'group' : 3

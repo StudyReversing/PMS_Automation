@@ -335,6 +335,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
 
 def addPatchRowByFileName(Classification, guid, kbid, des):
     regexList = pmsd.totalRegexDicByFileName[Classification]
+    flag = False
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
         result = re.findall(regexPattern, des)
@@ -367,14 +368,13 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
                             pmsd.totalRowDic[Classification][regexDic['group']] = []
                         tempList.extend(korList + enuList)
                         pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
-                        return
-                    else:
-                        undecidedList.append([guid, kbid, des])
-                        return
+                        flag = True
+                        break
         else:
             undecidedList.append([guid, kbid, des])
             return
-    undecidedList.append([guid, kbid, des])
+    if not flag:
+        undecidedList.append([guid, kbid, des])
 
 
 def addPatchRowForMalwareRemoveTool(guid, kbid, des):
