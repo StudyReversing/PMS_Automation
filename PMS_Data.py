@@ -1,5 +1,5 @@
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS', 'Visual Studio']
-officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'Publisher', 'SharePoint']
+officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'Publisher', 'SharePoint', 'OneNote', 'Project']
 
 """
 #ki# : KBID
@@ -459,6 +459,54 @@ totalRegexDic = {
             'excel' : '	Q#ki# MSOWAS213	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216		#df1#	Microsoft Office Web Apps Server 2013용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	wacserver2013-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
 			'descriptionInEnglish' : 'Security update for Microsoft Office Web Apps Server 2013',
 			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft OneNote 2013용 보안 업데이트\(\w{9}\) 32',
+            'excel' : '	Q#ki# MSON213	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10		#df1#	Microsoft OneNote 2013용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	onenote2013-KB#ki#-fullfile-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft OneNote 2013',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft OneNote 2013용 보안 업데이트\(\w{9}\) 64',
+            'excel' : '	Q#ki# MSON213_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10		#df1#	Microsoft OneNote 2013_x64용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	onenote2013-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft OneNote 2013_x64',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft OneNote 2016용 보안 업데이트\(\w{9}\) 32',
+            'excel' : '	Q#ki# MSON216	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10		#df1#	Microsoft OneNote 2016용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	onenote2016-KB#ki#-fullfile-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft OneNote 2016',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft OneNote 2016용 보안 업데이트\(\w{9}\) 64',
+            'excel' : '	Q#ki# MSON216_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10		#df1#	Microsoft OneNote 2016_x64용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	onenote2016-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft OneNote 2016_x64',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft Project 2013용 보안 업데이트\(\w{9}\) 32',
+            'excel' : '	Q#ki# MSP213	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Microsoft Project 2013용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	project2013-KB#ki#-fullfile-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft Project 2013',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft Project 2013용 보안 업데이트\(\w{9}\) 64',
+            'excel' : '	Q#ki# MSP213_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Microsoft Project 2013_x64용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	project2013-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft Project 2013_x64',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft Project 2016용 보안 업데이트\(\w{9}\) 32',
+            'excel' : '	Q#ki# MSP216	#gi#	#ki#	99	WXP,W23,WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Microsoft Project 2016용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	project2016-KB#ki#-fullfile-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft Project 2016',
+			'group' : 1
+        },
+        {
+            'regex' : 'Microsoft Project 2016용 보안 업데이트\(\w{9}\) 64',
+            'excel' : '	Q#ki# MSP216_x64	#gi#	#ki#	9	WVT,W28,W7,W28R2,W8,W212,W81,W212R2,W10,W216		#df1#	Microsoft Project 2016_x64용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	project2016-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'Security update for Microsoft Project 2016_x64',
+			'group' : 1
         }
     ],
     'internet' : [
@@ -588,6 +636,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp481',
                     'excel' : 'Windows10.0-#1#-KB#f1#-NDP481-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for Windows 10 #1#_x64 .NET Framework #dv#',
@@ -604,6 +656,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x86-ndp481',
                     'excel' : 'Windows10.0-#1#-KB#f1#-NDP481-x86-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x86_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x86-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for Windows 10 #1# .NET Framework #dv#',
@@ -680,6 +736,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
                     'excel' : 'Windows10.0-1607-KB#f1#-x64-NDP48-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows Server 2016 for x64',
@@ -712,6 +772,14 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
                     'excel' : 'Windows10.0-KB#f1#-x64-NDP48-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11 for x64',
@@ -724,6 +792,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows11.0-kb(\d{7})-x64-ndp481_',
                     'excel' : 'Windows11.0-KB#f1#-x64-NDP481-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
             'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11_22H2 for x64',
@@ -740,6 +812,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
                     'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP48-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64',
@@ -752,6 +828,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
                     'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP48-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64',
