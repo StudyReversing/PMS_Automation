@@ -739,7 +739,7 @@ totalRegexDicForMultiFile = {
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64_',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                    'excel' : 'Windows10.0-1607-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows Server 2016 for x64',
@@ -775,11 +775,11 @@ totalRegexDicForMultiFile = {
                 },
                 {
                     'regex' : 'windows11.0-kb(\d{7})-x64_',
-                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                    'excel' : 'Windows11.0-KB#f1#-x64-KOR.msu'
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64_',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                    'excel' : 'Windows10.0-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11 for x64',
@@ -795,7 +795,7 @@ totalRegexDicForMultiFile = {
                 },
                 {
                     'regex' : 'windows11.0-kb(\d{7})-x64_',
-                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                    'excel' : 'Windows11.0-22H2-KB#f1#-x64-KOR.msu'
                 }
             ],
             'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11_22H2 for x64',
