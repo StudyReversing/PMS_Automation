@@ -201,45 +201,45 @@ totalRegexDic = {
     ],
     'windows-etc' : [
         {
+            'regex' : 'x86 기반 시스템용 Windows Server 2008에 대한 서비스 스택',
+            'excel' : '	Q#ki# 28	#gi#	#ki#	0	W28		#df1#	Windows 2008 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows6.0-KB#ki#-x86-KOR.msu	1				',
+            'descriptionInEnglish' : 'Windows Server 2008 Servicing stack update',
+            'group' : 1
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows Server 2008에 대한 서비스 스택',
+            'excel' : '	Q#ki# 28_x64	#gi#	#ki#	9	W28		#df1#	Windows 2008_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows6.0-KB#ki#-x64-KOR.msu	1				',
+            'descriptionInEnglish' : 'Windows Server 2008_x64 Servicing stack update',
+            'group' : 1
+        },
+        {
             'regex' : 'x64 기반 시스템용 Windows Server 2012에 대한 서비스 스택',
-            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	Windows 2012 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-            'descriptionInEnglish' : 'Windows Server 2012 Servicing stack update',
+            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	Windows 2012_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'descriptionInEnglish' : 'Windows Server 2012_x64 Servicing stack update',
             'group' : 1
         },
         {
             'regex' : 'x64 기반 시스템용 Windows Server 2016에 대한 서비스 스택',
             'excel' : '	Q#ki# 216	#gi#	#ki#	9	W219		#df1#	Windows 2016_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-1607-KB#ki#-x64-KOR.msu	1				',
-            'descriptionInEnglish' : 'Windows 2016_x64 Servicing stack update',
+            'descriptionInEnglish' : 'Windows Server 2016_x64 Servicing stack update',
             'group' : 1
         },
         {
             'regex' : 'x64 기반 시스템용 Windows Server 2012 R2에 대한 서비스 스택',
-            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	Windows 2012R2 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-            'descriptionInEnglish' : 'Windows 2012R2 Servicing stack update',
+            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	Windows 2012R2_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'descriptionInEnglish' : 'Windows Server 2012R2_x64 Servicing stack update',
             'group' : 1
         },
         {
-            'regex' : 'x64 기반 시스템용 Windows 10 Version 1507에 대한 서비스 스택',
-            'excel' : '	Q#ki# 10_1507_x64	#gi#	#ki#	9	W10		#df1#	Windows 10_x64 1507 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-1507-KB#ki#-x64-KOR.msu	1				',
-            'descriptionInEnglish' : 'Windows 10_x64 1507 Servicing stack update',
+            'regex' : 'x64 기반 시스템용 Windows 10 Version (\w{4})에 대한 서비스 스택',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Windows 10_x64 #1# 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1				',
+            'descriptionInEnglish' : 'Windows 10_x64 #1# Servicing stack update',
             'group' : 1
         },
         {
-            'regex' : 'x86 기반 시스템용 Windows 10 Version 1507에 대한 서비스 스택',
-            'excel' : '	Q#ki# 10_1507	#gi#	#ki#	0	W10		#df1#	Windows 10 1507 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-1507-KB#ki#-x86-KOR.msu	1				',
-            'descriptionInEnglish' : 'Windows 10 1507 Servicing stack update',
-            'group' : 1
-        },
-        {
-            'regex' : 'x64 기반 시스템용 Windows 10 Version 1607에 대한 서비스 스택',
-            'excel' : '	Q#ki# 10_1607_x64	#gi#	#ki#	9	W10		#df1#	Windows 10_x64 1607 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-1607-KB#ki#-x64-KOR.msu	1				',
-            'descriptionInEnglish' : 'Windows 10_x64 1607 Servicing stack update',
-            'group' : 1
-        },
-        {
-            'regex' : 'x86 기반 시스템용 Windows 10 Version 1607에 대한 서비스 스택',
-            'excel' : '	Q#ki# 10_1607	#gi#	#ki#	0	W10		#df1#	Windows 10 1607 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-1607-KB#ki#-x86-KOR.msu	1				',
-            'descriptionInEnglish' : 'Windows 10 1607 Servicing stack update',
+            'regex' : 'x86 기반 시스템용 Windows 10 Version (\w{4})에 대한 서비스 스택',
+            'excel' : '	Q#ki# 10_#1#	#gi#	#ki#	0	W10		#df1#	Windows 10 #1# 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x86-KOR.msu	1				',
+            'descriptionInEnglish' : 'Windows 10 #1# Servicing stack update',
             'group' : 1
         },
         {
@@ -616,7 +616,7 @@ totalRegexDic = {
         },
         {
             'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for Microsoft server operating system version 21H2 for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
 			'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
 			'group' : 1
         }
