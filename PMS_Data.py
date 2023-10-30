@@ -610,13 +610,13 @@ totalRegexDic = {
     'etc' : [
         {
             'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
 			'descriptionInEnglish' : 'Microsoft server operating system version #1#_x64 Cumulative update',
 			'group' : 1
         },
         {
             'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
 			'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
 			'group' : 1
         }
