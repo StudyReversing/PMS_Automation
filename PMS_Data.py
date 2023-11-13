@@ -55,7 +55,7 @@ totalRegexDic = {
         {
             'regex' : 'Dynamic Cumulative Update for Windows 10 Version (\w{4}) for x64',
             'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Windows 10_x64 #1# Dynamic Cumulative 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Windows 10_x64 22H2 Dynamic Cumulative update',
+			'descriptionInEnglish' : 'Windows 10_x64 #1# Dynamic Cumulative update',
 			'group' : 2
         },
         {
