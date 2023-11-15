@@ -786,19 +786,19 @@ totalRegexDicForMultiFile = {
 			'group' : 2
         },
         {
-            'regex' : 'Windows 11  version 22H2 x64에 대한 .NET Framework (.+) 누적',
-            'excel' : '	Q#ki# 11_22H2_x64	#gi#	#ki#	9	W11		#df1#	Cumulative Update for .NET Framework #dv# for Windows 11_22H2 for x64	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'regex' : 'Windows 11  version (\w{4}) x64에 대한 .NET Framework (.+) 누적',
+            'excel' : '	Q#ki# 11_#1#_x64	#gi#	#ki#	9	W11		#df1#	Cumulative Update for .NET Framework #dv# for Windows 11_#1# for x64	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
             'fileName' : [
                 {
                     'regex' : 'windows11.0-kb(\d{7})-x64-ndp481_',
-                    'excel' : 'Windows11.0-KB#f1#-x64-NDP481-KOR.msu'
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-NDP481-KOR.msu'
                 },
                 {
                     'regex' : 'windows11.0-kb(\d{7})-x64_',
-                    'excel' : 'Windows11.0-22H2-KB#f1#-x64-KOR.msu'
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
-            'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11_22H2 for x64',
+            'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Windows 11_#1# for x64',
 			'group' : 2
         },
         {
