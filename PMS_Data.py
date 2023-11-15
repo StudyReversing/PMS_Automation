@@ -631,11 +631,11 @@ totalRegexDicForMultiFile = {
             'fileName' : [
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-NDP48-x64-KOR.msu'
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP48-KOR.msu'
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp481',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-NDP481-x64-KOR.msu'
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP481-KOR.msu'
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64_',
@@ -651,11 +651,11 @@ totalRegexDicForMultiFile = {
             'fileName' : [
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x86-ndp48_',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-NDP48-x86-KOR.msu'
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x86-NDP48-KOR.msu'
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x86-ndp481',
-                    'excel' : 'Windows10.0-#1#-KB#f1#-NDP481-x86-KOR.msu'
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x86-NDP481-KOR.msu'
                 },
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x86_',
