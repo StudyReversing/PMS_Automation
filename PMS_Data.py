@@ -1454,6 +1454,17 @@ totalRegexDicByFileName = {
             'group' : 1
         },
         {
+            'regex' : 'Update Rollup (\d{1,2}) for Microsoft System Center 2022 - Virtual Machine Manager',
+            'fileName' : [
+                {
+                    'regex' : 'kb(\d{7})_vmmguestagent_',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216,W10,W212R2,W219		#df1#	Microsoft System Center 2022 용 업데이트 롤업 #1# - Virtual Machine Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	kb#ki#_vmmguestagent-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft System Center 2022 - Virtual Machine Manager'
+                }
+            ],
+            'group' : 1
+        },
+        {
             'regex' : 'Microsoft System Center 2019 용 업데이트 롤업 (\d{1,2})',
             'fileName' : [
                 {
