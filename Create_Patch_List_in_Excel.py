@@ -12,9 +12,12 @@ import time
 from tqdm import tqdm
 
 undecidedList = []
+removeList = []
 
 startPeriod = None
 endPeriod = None
+
+lastID = 0
 
 previousIDDic = {}
 passiveIDDic = {}
@@ -248,15 +251,20 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
             # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
-            tempList.extend([des, len(fileNameTuple)])
-            # 최종행 저장
-            if Classification not in pmsd.totalRowDic:
-                pmsd.totalRowDic[Classification] = {}
-            if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                pmsd.totalRowDic[Classification][regexDic['group']] = []
-            tempList.extend(korList + enuList)
-            pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
-            return
+            downloadLength = len(fileNameTuple)
+            if downloadLength > 0:
+                tempList.extend([des, len(fileNameTuple)])
+                # 최종행 저장
+                if Classification not in pmsd.totalRowDic:
+                    pmsd.totalRowDic[Classification] = {}
+                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                    pmsd.totalRowDic[Classification][regexDic['group']] = []
+                tempList.extend(korList + enuList)
+                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                return
+            else:
+                removeList.append([guid, kbid, des])
+                return
         else:
             undecidedList.append([guid, kbid, des])
             return
@@ -278,7 +286,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
             excel = regexDic['excel']
             descriptionInEnglish = regexDic['descriptionInEnglish']
             
-            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, True)
+            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False if etcFlag else True)
 
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
@@ -315,14 +323,15 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
                     copyList.extend(korList + enuList)
                     pmsd.totalRowDic[Classification][regexDic['group']].append(copyList)
             else:
-                tempList.extend([des, 0])
-                # 최종행 저장
-                if Classification not in pmsd.totalRowDic:
-                    pmsd.totalRowDic[Classification] = {}
-                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                    pmsd.totalRowDic[Classification][regexDic['group']] = []
-                tempList.extend(korList + enuList)
-                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                removeList.append([guid, kbid, des])
+                # tempList.extend([des, 0])
+                # # 최종행 저장
+                # if Classification not in pmsd.totalRowDic:
+                #     pmsd.totalRowDic[Classification] = {}
+                # if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                #     pmsd.totalRowDic[Classification][regexDic['group']] = []
+                # tempList.extend(korList + enuList)
+                # pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
             return
         else:
             undecidedList.append([guid, kbid, des])
@@ -345,31 +354,36 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
         elif length == 1:
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
-            for fileName in fileNameTuple:
-                for one in regexDic['fileName']:
-                    fileNamePattern = re.compile(one['regex'])
-                    res = re.findall(fileNamePattern, fileName)
-                    resLength = len(res)
-                    if resLength == 0:
-                        continue
-                    elif resLength == 1:
-                        excel = one['excel']
-                        descriptionInEnglish = one['descriptionInEnglish']
+            downloadLength = len(fileNameTuple)
+            if downloadLength > 0:
+                for fileName in fileNameTuple:
+                    for one in regexDic['fileName']:
+                        fileNamePattern = re.compile(one['regex'])
+                        res = re.findall(fileNamePattern, fileName)
+                        resLength = len(res)
+                        if resLength == 0:
+                            continue
+                        elif resLength == 1:
+                            excel = one['excel']
+                            descriptionInEnglish = one['descriptionInEnglish']
 
-                        tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False)
+                            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False)
 
-                        # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
-                        tempList.extend([des, 1])
+                            # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
+                            tempList.extend([des, 1])
 
-                        # 최종행 저장
-                        if Classification not in pmsd.totalRowDic:
-                            pmsd.totalRowDic[Classification] = {}
-                        if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                            pmsd.totalRowDic[Classification][regexDic['group']] = []
-                        tempList.extend(korList + enuList)
-                        pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
-                        flag = True
-                        break
+                            # 최종행 저장
+                            if Classification not in pmsd.totalRowDic:
+                                pmsd.totalRowDic[Classification] = {}
+                            if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                                pmsd.totalRowDic[Classification][regexDic['group']] = []
+                            tempList.extend(korList + enuList)
+                            pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                            flag = True
+                            break
+            else:
+                removeList.append([guid, kbid, des])
+                return
         else:
             undecidedList.append([guid, kbid, des])
             return
@@ -575,6 +589,7 @@ def writePatchListToExcel():
             if key != 'passive':
                 list.sort(key=lambda x:x[8])
             for one in list:
+                # TODO: ID 번호 자동 입력 기능
                 normal_ws.append(one)
             normal_ws.append([])
             normal_ws.append([])
@@ -597,6 +612,8 @@ def writePatchListToExcel():
 
     remove_ws = wb.create_sheet()
     remove_ws.title = 'remove'
+    for one in removeList:
+        remove_ws.append(one)
 
     file_ver_history_ws = wb.create_sheet()
     file_ver_history_ws.title = 'file_ver_history'

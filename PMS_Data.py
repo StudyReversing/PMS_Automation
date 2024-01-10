@@ -607,20 +607,7 @@ totalRegexDic = {
 			'group' : 1
         }
     ],
-    'etc' : [
-        {
-            'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
-            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Microsoft server operating system version #1#_x64 Cumulative update',
-			'group' : 1
-        },
-        {
-            'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
-            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
-			'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
-			'group' : 1
-        }
-    ]
+    'etc' : []
 }
 
 totalRegexDicForMultiFile = {
@@ -822,8 +809,28 @@ totalRegexDicForMultiFile = {
 			'group' : 2
         },
         {
+            'regex' : 'x64용 Microsoft server operating system  version (\w{4})용 .NET Framework (.+) 누적',
+            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'fileName' : [
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64-ndp481_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP481-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-NDP48-KOR.msu'
+                },
+                {
+                    'regex' : 'windows10.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                }
+            ],
+			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64',
+			'group' : 2
+        },
+        {
             'regex' : 'Microsoft server operating system  version (\w{4}) x64에 대한 .NET Framework (.+) 누적',
-            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
             'fileName' : [
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64-ndp48_',
@@ -832,6 +839,14 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'windows10.0-kb(\d{7})-x64_',
                     'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})-x64-ndp481',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-NDP481-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})-x64_',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
                 }
             ],
 			'descriptionInEnglish' : 'Cumulative Update for .NET Framework #dv# for Microsoft server operating system version #1# for x64',
@@ -848,6 +863,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'ndp(\d{2})-kb(\d{7})',
                     'excel' : 'NDP#f1#-KB#f2#-x64-KOR.exe'
+                },
+                {
+                    'regex' : 'ndp(\d{2})sp1-kb(\d{7})',
+                    'excel' : 'NDP#f1#SP1-KB#f2#-x64-KOR.exe'
                 }
             ],
 			'descriptionInEnglish' : 'Security Only Update for .NET Framework #dv# on Windows Server 2008 SP2 for x64',
@@ -864,6 +883,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'ndp(\d{2})-kb(\d{7})',
                     'excel' : 'NDP#f1#-KB#f2#-x86-KOR.exe'
+                },
+                {
+                    'regex' : 'ndp(\d{2})sp1-kb(\d{7})',
+                    'excel' : 'NDP#f1#SP1-KB#f2#-x86-KOR.exe'
                 }
             ],
 			'descriptionInEnglish' : 'Security Only Update for .NET Framework #dv# on Windows Server 2008 SP2',
@@ -992,6 +1015,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'ndp(\d{2})-kb(\d{7})',
                     'excel' : 'NDP#f1#-KB#f2#-x86-KOR.exe'
+                },
+                {
+                    'regex' : 'ndp(\d{2})sp1-kb(\d{7})',
+                    'excel' : 'NDP#f1#SP1-KB#f2#-x86-KOR.exe'
                 }
             ],
 			'descriptionInEnglish' : 'Security and Quality Rollup for .NET Framework #dv# on Windows Server 2008 SP2',
@@ -1008,6 +1035,10 @@ totalRegexDicForMultiFile = {
                 {
                     'regex' : 'ndp(\d{2})-kb(\d{7})',
                     'excel' : 'NDP#f1#-KB#f2#-x64-KOR.exe'
+                },
+                {
+                    'regex' : 'ndp(\d{2})sp1-kb(\d{7})',
+                    'excel' : 'NDP#f1#SP1-KB#f2#-x64-KOR.exe'
                 }
             ],
 			'descriptionInEnglish' : 'Security and Quality Rollup for .NET Framework #dv# on Windows Server 2008 SP2 for x64',
@@ -1294,7 +1325,56 @@ totalRegexDicForMultiFile = {
 			'group' : 8
         }
     ],
-    'etc' : []
+    'etc' : [
+        {
+            'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
+            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Microsoft server operating system version #1#_x64 누적 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+			'fileName' : [
+                {
+                    'regex' : 'windows10.0-kb(\d{7})',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                }
+            ],
+            'descriptionInEnglish' : 'Microsoft server operating system version #1#_x64 Cumulative update',
+			'group' : 1
+        },
+        {
+            'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4}) x64',
+            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+			'fileName' : [
+                {
+                    'regex' : 'windows10.0-kb(\d{7})',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                }
+            ],
+            'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
+			'group' : 1
+        },
+        {
+            'regex' : '누적 업데이트\(Microsoft server operating system version (\w{4})x64',
+            'excel' : '	Q#ki# 222_#1#_x64	#gi#	#ki#	9	W2022		#df1#	Cumulative Update for Microsoft server operating system version #1# for x64-based Systems	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+			'fileName' : [
+                {
+                    'regex' : 'windows10.0-kb(\d{7})',
+                    'excel' : 'Windows10.0-#1#-KB#f1#-x64-KOR.msu'
+                },
+                {
+                    'regex' : 'windows11.0-kb(\d{7})',
+                    'excel' : 'Windows11.0-#1#-KB#f1#-x64-KOR.msu'
+                }
+            ],
+            'descriptionInEnglish' : 'Cumulative Update for Microsoft server operating system version #1# for x64-based Systems',
+			'group' : 1
+        }
+    ]
 }
 
 totalRegexDicByFileName = {
