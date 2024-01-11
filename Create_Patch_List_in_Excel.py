@@ -642,8 +642,12 @@ def writePatchListToExcel():
             cell.font = Font(name='굴림체')
     wb.save(xlsxPath)
 
+def removeListFromNewPatchList():
+    for one in removeList:
+        newPatchList.remove(one[0]+'\t'+str(int(one[1]))+'\n')
 
 def writePreviousPatchListTxt():
+    removeListFromNewPatchList()
     f = open('./' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt', 'w')
     totalPatchList = previousPatchList + newPatchList
     for one in totalPatchList:
