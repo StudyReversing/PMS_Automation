@@ -17,7 +17,7 @@ removeList = []
 startPeriod = None
 endPeriod = None
 
-lastID = 0
+global lastID
 
 previousIDDic = {}
 passiveIDDic = {}
@@ -522,6 +522,7 @@ def makePassiveIDDic(key, value):
 
 def createPassivePatchRows():
     groupDic = {'chrome':1, 'edge':2, 'adobe':3, 'hoffice2022':4, 'hoffice2020':4, 'hoffice2018':4, 'hofficeneo':4, 'hwpneo':4, 'java':5}
+    global lastID
     lastID = previousIDDic['last']
     haslastID = lastID != 0
     hofficeFlag = False
@@ -577,7 +578,7 @@ def createPassivePatchRows():
 
 
 def writePatchListToExcel():
-    global endPeriod
+    global endPeriod, lastID
     normalRowCount = 0
     fileVerHistoryRowCount = 0
     wb = Workbook()
@@ -588,9 +589,15 @@ def writePatchListToExcel():
         for list in value.values():
             if key != 'passive':
                 list.sort(key=lambda x:x[8])
+                if key != 'malware-remove-tool':
+                    lastID = (lastID//10 + 1) * 10
             for one in list:
-                # TODO: ID 번호 자동 입력 기능
+                if one[0] == '':
+                    one[0] = lastID
+                    lastID += 1
                 normal_ws.append(one)
+            if key != 'passive' and key != 'malware-remove-tool':
+                lastID -= 1
             normal_ws.append([])
             normal_ws.append([])
             normalRowCount += len(list) + 2
@@ -644,10 +651,11 @@ def writePreviousPatchListTxt():
     f.close()
 
 def writePreviousPassiveUpateTxt():
+    global lastID
     f = open('./' + endPeriod.strftime('%Y_%m_%d') + '_Previous_Passive_Update.txt', 'w')
     for key, value in passiveIDDic.items():
         previousIDDic[key] = value
-    previousIDDic['last'] = 0
+    previousIDDic['last'] = lastID
     f.write('previousID=' + str(previousIDDic))
     f.close()
 
