@@ -428,6 +428,8 @@ def createMSPatchRowsByType(guid, kbid, des):
     elif 'Azure' in des:
         if 'Azure File Sync Agent' in des:
             addPatchRowByFileName('azure-file-sync-agent', guid, kbid, des)
+        elif 'Azure Backup Server' in des:
+            addPatchRowByFileName('azure-backup-server', guid, kbid, des)
         else:
             addPatchRow('azure', guid, kbid, des)
     elif 'Internet' in des:
@@ -447,6 +449,8 @@ def createMSPatchRowsByType(guid, kbid, des):
         addPatchRow('powershell', guid, kbid, des)
     elif any(one in des for one in pmsd.officeList):
         addPatchRow('office', guid, kbid, des)
+    elif 'Skype' in des:
+        addPatchRow('skype', guid, kbid, des)
     elif 'SQL Server' in des:
         addPatchRowByFileName('sql-server', guid, kbid, des)
     elif 'Microsoft System Center' in des:

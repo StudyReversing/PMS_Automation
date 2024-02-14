@@ -197,6 +197,18 @@ totalRegexDic = {
             'excel' : '	Q#ki# 11_x64	#gi#	#ki#	9	W11		#df1#	Windows 11 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows11.0-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
             'descriptionInEnglish' : 'Security update for Windows 11',
             'group' : 2
+        },
+        {
+            'regex' : 'x86 기반 시스템용 Windows 10 Version (\w{4}) 보안',
+            'excel' : '	Q#ki# 10_#1#	#gi#	#ki#	0	W10		#df1#	Windows 10 #1# 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x86-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'descriptionInEnglish' : 'Security update for Windows 10 #1#',
+            'group' : 2
+        },
+        {
+            'regex' : 'x64 기반 시스템용 Windows 10 Version (\w{4}) 보안',
+            'excel' : '	Q#ki# 10_#1#_x64	#gi#	#ki#	9	W10		#df1#	Windows 10_x64 #1# 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows10.0-#1#-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'descriptionInEnglish' : 'Security update for Windows 10_x64 #1#',
+            'group' : 2
         }
     ],
     'windows-etc' : [
@@ -604,6 +616,20 @@ totalRegexDic = {
             'regex' : 'PowerShell v(.+) \(x64\)',
             'excel' : '	Q#ki# PS_x64	#gi#	#ki#	9	W10,W11,W212R2		#df1#	PowerShell V.#1#_x64 업데이트	https://github.com/PowerShell/PowerShell/releases/tag/v#1#	#s#	0	Microsoft			1	powershell-#1#-KB#ki#-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
 			'descriptionInEnglish' : 'Security update for PowerShell V.#1#_x64',
+			'group' : 1
+        }
+    ],
+    'skype' : [
+        {
+            'regex' : 'Skype for Business 20(\d{2})용 보안 업데이트\(KB(.+)\) 32',
+            'excel' : '	Q#ki# SKYPE2#1#BIZ	#gi#	#ki#	99	W28R2SP1,W212R2		#df1#	비즈니스용 Skype 20#1#용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	lync20#1#-KB#ki#-fullfile-x86-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'security update for Skype for Business 20#1#',
+			'group' : 1
+        },
+        {
+            'regex' : 'Skype for Business 20(\d{2})용 보안 업데이트\(KB(.+)\) 64',
+            'excel' : '	Q#ki# SKYPE2#1#BIZ_x64	#gi#	#ki#	99	W28R2SP1,W212R2		#df1#	비즈니스용 Skype 20#1#_x64용 보안 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			0	lync20#1#-KB#ki#-fullfile-x64-KOR.exe	1	 /quiet /norestart	!pass!	!pass!	!pass!',
+			'descriptionInEnglish' : 'security update for Skype for Business 20#1#_x64',
 			'group' : 1
         }
     ],
@@ -1516,6 +1542,24 @@ totalRegexDicByFileName = {
 			'group' : 1
         }
     ],
+    'azure-backup-server' : [
+        {
+            'regex' : 'Azure Backup Server V3용 업데이트 롤업 (.+)용',
+            'fileName' : [
+                {
+                    'regex' : 'dpmmanagementshell',
+                    'excel' : '	Q#ki# MSABSV3	#gi#	#ki#	99	W216, W219		#df1#	Microsoft Azure Backup Server V3용 업데이트 롤업 #1#- Data Protection Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	dpmmanagementshell-KB#ki#-KOR.exe	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft Azure Backup Server V3 - Virtual Machine Manager'
+                },
+                {
+                    'regex' : 'microsoftazurebackup',
+                    'excel' : '	Q#ki# MSABSV3	#gi#	#ki#	99	W216, W219		#df1#	Microsoft Azure Backup Server V3용 업데이트 롤업 #1#- Data Protection Manager	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	microsoftazurebackup-KB#ki#-KOR.exe	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for Microsoft Azure Backup Server V3 - Virtual Machine Manager'
+                }
+            ],
+			'group' : 1
+        }
+    ],
     'microsoft-system-center' : [
         {
             'regex' : 'Microsoft System Center 2022 용 업데이트 롤업 (\d{1,2})',
@@ -1795,8 +1839,10 @@ totalRowDic = {
     'dotnet' : {},
     'azure' : {},
     'azure-file-sync-agent' : {},
+    'azure-backup-server' : {},
     'exchange' : {},
     'powershell' : {},
+    'skype' : {},
     'sql-server' : {},
     'microsoft-system-center' : {},
     'etc' : {},
