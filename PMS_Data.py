@@ -1,5 +1,6 @@
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS', 'Visual Studio']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'Publisher', 'SharePoint', 'OneNote', 'Project']
+exceptionToIncludeList = ['x64 기반 시스템용 Windows 11 Version (\w{4})에 대한 누적']
 
 """
 #ki# : KBID

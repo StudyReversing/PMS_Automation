@@ -55,6 +55,18 @@ def getPatchDateByMonth(dateTime):
 def isPatchExclusion(des):
     return any(one in des for one in pmsd.patchExclusionList)
 
+def isExceptionToInclude(des):
+    for one in pmsd.exceptionToIncludeList:
+        regexPattern = re.compile(one)
+        result = re.findall(regexPattern, des)
+        length = len(result)
+        if length == 0:
+            continue
+        elif length == 1:
+            return True
+        else:
+            return False
+    return False
 
 def isNumber(str):
     try:
@@ -252,7 +264,7 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
             downloadLength = len(fileNameTuple)
-            if downloadLength > 0:
+            if downloadLength > 0 or isExceptionToInclude(des):
                 tempList.extend([des, len(fileNameTuple)])
                 # 최종행 저장
                 if Classification not in pmsd.totalRowDic:
@@ -291,7 +303,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
             downloadLength = len(fileNameTuple)
-            if downloadLength > 0:
+            if downloadLength > 0 or isExceptionToInclude(des):
                 for i in range(len(fileNameTuple)):
                     copyList = tempList.copy()
                     # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
@@ -355,7 +367,7 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
             downloadLength = len(fileNameTuple)
-            if downloadLength > 0:
+            if downloadLength > 0 or isExceptionToInclude(des):
                 for fileName in fileNameTuple:
                     for one in regexDic['fileName']:
                         fileNamePattern = re.compile(one['regex'])
