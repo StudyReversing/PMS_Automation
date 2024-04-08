@@ -16,8 +16,9 @@ removeList = []
 
 startPeriod = None
 endPeriod = None
+workDate = None
 
-global lastID
+lastID = None
 
 previousIDDic = {}
 passiveIDDic = {}
@@ -31,13 +32,13 @@ newPatchList = []
 totalFileVersionHistoryDic = {}
 
 
-def getPatchPeriod():
-    global startPeriod
-    global endPeriod
+def setPatchPeriod():
+    global startPeriod, endPeriod, workDate
     today = dt.date.today()
     beforeOneMonth = today - relativedelta(months=1)
     startPeriod = getPatchDateByMonth(beforeOneMonth)
     endPeriod = getPatchDateByMonth(today)
+    workDate = today
 
 
 def getPatchDateByMonth(dateTime):
@@ -90,8 +91,7 @@ def validatePatchInfo(guid, kbid, des):
 
 
 def makePreviousIDDic():
-    global previousIDDic
-    global startPeriod
+    global previousIDDic, startPeriod
     
     f = open('./' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Passive_Update.txt', 'r')
     line = f.readline()
@@ -110,8 +110,7 @@ def makePassiveUpdateVersionDic():
 
 
 def makePreviousPatchList():
-    global previousPatchList
-    global startPeriod
+    global previousPatchList, startPeriod
 
     f = open('./' + startPeriod.strftime('%Y_%m_%d') + '_Previous_Patch_List.txt', 'r')
     previousPatchList = f.readlines()
@@ -119,11 +118,9 @@ def makePreviousPatchList():
 
 
 def makeSeveritySet():
-    global importantSet
-    global criticalSet
-    global endPeriod
+    global importantSet, criticalSet, workDate
 
-    xlsPath = './Security Updates ' + endPeriod.strftime('%Y-%m-%d') + '.csv'
+    xlsPath = './Security Updates ' + workDate.strftime('%Y-%m-%d') + '.csv'
 
     securityUpdates = pd.read_csv(xlsPath, encoding = 'ANSI')
     securityUpdates = securityUpdates.rename(columns={"Max Severity":"Severity"})
@@ -203,8 +200,9 @@ def getTargetProducts(guid):
 
 
 def makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, flagForDotNet):
+    global endPeriod, workDate
     # KBID, GUID, dateForm1 적용
-    excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y.%m'))
+    excel = excel.replace('#ki#', kbid).replace('#gi#', guid).replace('#df1#', workDate.strftime('%Y-%m-%d')).replace('#df2#', endPeriod.strftime('%Y.%m'))
     descriptionInEnglish = descriptionInEnglish.replace('#df2#', endPeriod.strftime('%Y.%m'))
     
     # 개별 변경 사항 적용
@@ -472,8 +470,8 @@ def createMSPatchRowsByType(guid, kbid, des):
 
 
 def readPatchListFromExcel():
-    global endPeriod
-    xlsPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Result.csv'
+    global workDate
+    xlsPath = './' + workDate.strftime('%Y_%m_%d') + '_Result.csv'
     patchList = pd.read_csv(xlsPath, encoding = 'ANSI', names=['day', 'GUID', 'c', 'd', 'KBID', 'Des'])
     if patchList.shape[0] < 1: # == len(patchTargetList)
         print('패치 목록을 불러오는데 실패했습니다.')
@@ -483,8 +481,7 @@ def readPatchListFromExcel():
 
 
 def createMSPatchRows(patchList):
-    global startPeriod
-    global endPeriod
+    global startPeriod, endPeriod
     # for i in reversed(range(patchList.shape[0])):
     for i in tqdm(range(patchList.shape[0])):
         try:
@@ -508,7 +505,8 @@ def createMSPatchRows(patchList):
 
 
 def commonPassivePatchReplace(dic, version, replacementID, numID):
-    excel = dic['excel'].replace('#df1#', endPeriod.strftime('%Y-%m-%d')).replace('#v#', version).replace('#ri#', str(replacementID))
+    global workDate, endPeriod
+    excel = dic['excel'].replace('#df1#', workDate.strftime('%Y-%m-%d')).replace('#v#', version).replace('#ri#', str(replacementID))
     descriptionInEnglish = endPeriod.strftime('%B, %Y ') + dic['descriptionInEnglish'].replace('#v#', version)
     fileVersionHistory = dic['fileVersionHistory'].replace('#v#', version)
     
@@ -594,7 +592,7 @@ def createPassivePatchRows():
 
 
 def writePatchListToExcel():
-    global endPeriod, lastID
+    global workDate, lastID
     normalRowCount = 0
     fileVerHistoryRowCount = 0
     wb = Workbook()
@@ -647,7 +645,7 @@ def writePatchListToExcel():
         file_ver_history_ws.append([])
         fileVerHistoryRowCount += len(list) + 2
 
-    xlsxPath = './' + endPeriod.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
+    xlsxPath = './' + workDate.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     # DEFAULT_FONT.name = '굴림체'
     DEFAULT_FONT.size = '10'
     for row in normal_ws['1:' + str(normalRowCount)]:
@@ -680,16 +678,7 @@ def writePreviousPassiveUpateTxt():
     f.close()
 
 def main():
-    global startPeriod
-    global endPeriod
-    numberOfArgs = len(sys.argv)
-    if numberOfArgs == 1:
-        getPatchPeriod()
-    elif numberOfArgs == 3:
-        startPeriod, endPeriod = dt.datetime.strptime(sys.argv[1], '%Y%m%d').date(), dt.datetime.strptime(sys.argv[2], '%Y%m%d').date()
-    else:
-        print('파라미터 개수를 확인해주세요.')
-        sys.exit()
+    setPatchPeriod()
 
     makeSeveritySet()
     makePreviousPatchList()
