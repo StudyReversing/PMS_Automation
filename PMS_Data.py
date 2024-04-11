@@ -1352,6 +1352,56 @@ totalRegexDicForMultiFile = {
 			'group' : 8
         }
     ],
+    'db-driver-for-sql-server' : [
+        {
+            'regex' : 'Microsoft OLE DB Driver for SQL Server용 보안 업데이트',
+            'excel' : '	Q#ki# OLE_DB_Driver	#gi#	#ki#	99	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022		#df1#	Microsoft OLE DB Driver for SQL Server용 보안 업데이트(KB#ki#)	https://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'fileName' : [
+                {
+                    'regex' : 'msoledbsql_(.+).exe',
+                    'excel' : 'msoledbsql_#f1#.exe'
+                }
+            ],
+            'descriptionInEnglish' : 'Security Update for Microsoft OLE DB Driver for SQL Server',
+            'group' : 1
+        },
+        {
+            'regex' : 'Microsoft OLE DB Driver (.+) for SQL Server용 보안 업데이트',
+            'excel' : '	Q#ki# OLE_DB_Driver_#1#	#gi#	#ki#	99	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022		#df1#	Microsoft OLE DB Driver #1# for SQL Server용 보안 업데이트(KB#ki#)	https://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'fileName' : [
+                {
+                    'regex' : 'msoledbsql_(.+).exe',
+                    'excel' : 'msoledbsql_#f1#.exe'
+                }
+            ],
+            'descriptionInEnglish' : 'Security Update for Microsoft OLE DB Driver #1# for SQL Server',
+            'group' : 1
+        },
+        {
+            'regex' : 'Microsoft ODBC Driver for SQL Server용 보안 업데이트',
+            'excel' : '	Q#ki# ODBC_Driver	#gi#	#ki#	99	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022		#df1#	Microsoft ODBC Driver for SQL Server용 보안 업데이트(KB#ki#)	https://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'fileName' : [
+                {
+                    'regex' : 'msodbcsql_(.+).exe',
+                    'excel' : 'msodbcsql_#f1#.exe'
+                }
+            ],
+            'descriptionInEnglish' : 'Security Update for Microsoft ODBC Driver for SQL Server',
+            'group' : 2
+        },
+        {
+            'regex' : 'Microsoft ODBC Driver (.+) for SQL Server용 보안 업데이트',
+            'excel' : '	Q#ki# ODBC_Driver_#1#	#gi#	#ki#	99	WVT,W28,W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11,W2022		#df1#	Microsoft ODBC Driver #1# for SQL Server용 보안 업데이트(KB#ki#)	https://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	#fn#	1	 /quiet /norestart	!pass!		',
+            'fileName' : [
+                {
+                    'regex' : 'msodbcsql_(.+).exe',
+                    'excel' : 'msodbcsql_#f1#.exe'
+                }
+            ],
+            'descriptionInEnglish' : 'Security Update for Microsoft ODBC Driver #1# for SQL Server',
+            'group' : 2
+        }
+    ],
     'etc' : [
         {
             'regex' : 'x64 기반 시스템용 Microsoft server operating system  version (\w{4})에 대한 누적',
@@ -1846,6 +1896,7 @@ totalRowDic = {
     'skype' : {},
     'sql-server' : {},
     'microsoft-system-center' : {},
+    'db-driver-for-sql-server' : {},
     'etc' : {},
     'malware-remove-tool' : {1:[]}
 }

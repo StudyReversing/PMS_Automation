@@ -140,9 +140,9 @@ def makeSeveritySet():
 def setSeverity(excel, kbid):
     severityStr = ''
     if kbid in criticalSet:
-        severityStr = '1'
-    elif kbid in importantSet:
         severityStr = '0'
+    elif kbid in importantSet:
+        severityStr = '1'
     return excel.replace('#s#', severityStr)
 
 
@@ -284,7 +284,7 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
         undecidedList.append([guid, kbid, des])
 
 
-def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False):
+def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False, donetFlag:bool=False):
     regexList = pmsd.totalRegexDicForMultiFile[Classification]
     for regexDic in regexList:
         regexPattern = re.compile(regexDic['regex'])
@@ -296,7 +296,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False)
             excel = regexDic['excel']
             descriptionInEnglish = regexDic['descriptionInEnglish']
             
-            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, False if etcFlag else True)
+            tempList, korList, enuList = makePatchRowData(guid, kbid, result, excel, descriptionInEnglish, donetFlag)
 
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
@@ -434,7 +434,7 @@ def sortPatchRowForMalwareRemoveTool():
 
 def createMSPatchRowsByType(guid, kbid, des):
     if '.Net' in des or '.NET' in des:
-        addPatchRowForMultiFile('dotnet', guid, kbid, des)
+        addPatchRowForMultiFile('dotnet', guid, kbid, des, donetFlag=True)
     elif 'Azure' in des:
         if 'Azure File Sync Agent' in des:
             addPatchRowByFileName('azure-file-sync-agent', guid, kbid, des)
@@ -462,7 +462,10 @@ def createMSPatchRowsByType(guid, kbid, des):
     elif 'Skype' in des:
         addPatchRow('skype', guid, kbid, des)
     elif 'SQL Server' in des:
-        addPatchRowByFileName('sql-server', guid, kbid, des)
+        if 'Driver' in des:
+            addPatchRowForMultiFile('db-driver-for-sql-server', guid, kbid, des)
+        else:
+            addPatchRowByFileName('sql-server', guid, kbid, des)
     elif 'Microsoft System Center' in des:
         addPatchRowByFileName('microsoft-system-center', guid, kbid, des)
     else:
