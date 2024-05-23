@@ -1,6 +1,5 @@
 patchExclusionList = ['ARM', 'arm', 'Embedded', '팜', '팝', 'Itanium', 'POS', 'Visual Studio']
 officeList = ['Office', 'Word', 'Excel', 'Outlook', 'PowerPoint', 'Visio', 'Publisher', 'SharePoint', 'OneNote', 'Project']
-exceptionToIncludeList = ['x64 기반 시스템용 Windows 11 Version (\w{4})에 대한 누적']
 
 """
 #ki# : KBID
@@ -1706,28 +1705,94 @@ totalRegexDicByFileName = {
             'fileName' : [
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookserver_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
                     'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Server'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookdesigner_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
                     'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Runbook Designer'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webconsole_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
                     'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Web Console'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.managementserver_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
                     'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Management Server'
                 },
                 {
                     'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webapi_x64',
-                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'excel' : '	Q#ki# MSSC222	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2022_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
                     'descriptionInEnglish' : 'Update Rollup #1# for System Center 2022_x64 - Orchestrator Web API'
+                }
+            ],
+            'group' : 3
+        },
+        {
+            'regex' : 'Update Rollup (\d{1,2}) for Microsoft System Center 2019',
+            'fileName' : [
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookserver_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Runbook Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.runbookdesigner_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Runbook Designer'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webconsole_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Web Console'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.managementserver_x86',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2019 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x86-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019 - Orchestrator Management Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.managementserver_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Management Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webapi_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Web API'
+                },
+                {
+                    'regex' : 'kb(\d{7})_runbookserver_x86',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2019 - Orchestrator Runbook Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookserver-x86-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019 - Orchestrator Runbook Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_runbookdesigner_x86',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2019 - Orchestrator Runbook Designer	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-runbookdesigner-x86-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Runbook Designer'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webconsole_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Web Console	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webconsole-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Web Console'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.managementserver_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Management Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_managementserver_x86',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	99	W216		#df1#	Update Rollup #1# for System Center 2019 - Orchestrator Management Server	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-managementserver-x86-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019 - Orchestrator Management Server'
+                },
+                {
+                    'regex' : 'kb(\d{7})_microsoft.systemcenter.orchestrator.webapi_x64',
+                    'excel' : '	Q#ki# MSSC219	#gi#	#ki#	9	W216		#df1#	Update Rollup #1# for System Center 2019_x64 - Orchestrator Web API	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	KB#ki#-webapi-x64-KOR.msp	1	 /quiet /norestart	!pass!		',
+                    'descriptionInEnglish' : 'Update Rollup #1# for System Center 2019_x64 - Orchestrator Web API'
                 }
             ],
             'group' : 3
@@ -1772,12 +1837,12 @@ malwareRemoveToolRegexList = [
 passiveUpdateDic = {
     'chrome' : [
         {
-            'excel' : '	Q25430 GCR		0	0	W7,W8,W81,W10	G_CR	#df1#	Google Chrome (#v# 32bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
+            'excel' : '	Q25430 GCR		0	0	W10	G_CR	#df1#	Google Chrome (#v# 32bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
             'descriptionInEnglish' : 'Google Chrome (#v# 32bit)',
             'fileVersionHistory' : '	%ProgramFiles%\\Google\\Chrome\\Application	chrome.exe	0	#v#	-1'
         },
         {
-            'excel' : '	Q25430 GCR_x64		0	9	W7,W28R2,W8,W81,W212,W212R2,W10,W216,W11	G_CR	#df1#	Google Chrome (#v# 64bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup64_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
+            'excel' : '	Q25430 GCR_x64		0	9	W10,W216,W11	G_CR	#df1#	Google Chrome (#v# 64bit)	https://chromereleases.googleblog.com/search/label/Stable%20updates	0	#ri#	Google			0	ChromeStandaloneSetup64_#v#-KOR.exe	0	 /silent /install	!pass!	!pass!	!pass!',
             'descriptionInEnglish' : 'Google Chrome (#v# 64bit)',
             'fileVersionHistory' : '	^CHROME_64^	chrome.exe	0	#v#	-1'
         }

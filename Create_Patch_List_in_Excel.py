@@ -26,9 +26,12 @@ passiveUpdateVersionDic = {}
 previousPatchList = []
 importantSet = set()
 criticalSet = set()
+multiSeveritySet = set()
+multiSeverityForPatchTargetSet = set()
 exclusionPatchList = []
 duplicationPatchList = []
 newPatchList = []
+multiSeverityList = []
 totalFileVersionHistoryDic = {}
 
 
@@ -56,18 +59,6 @@ def getPatchDateByMonth(dateTime):
 def isPatchExclusion(des):
     return any(one in des for one in pmsd.patchExclusionList)
 
-def isExceptionToInclude(des):
-    for one in pmsd.exceptionToIncludeList:
-        regexPattern = re.compile(one)
-        result = re.findall(regexPattern, des)
-        length = len(result)
-        if length == 0:
-            continue
-        elif length == 1:
-            return True
-        else:
-            return False
-    return False
 
 def isNumber(str):
     try:
@@ -118,7 +109,7 @@ def makePreviousPatchList():
 
 
 def makeSeveritySet():
-    global importantSet, criticalSet, workDate
+    global importantSet, criticalSet, multiSeveritySet, workDate
 
     xlsPath = './Security Updates ' + workDate.strftime('%Y-%m-%d') + '.csv'
 
@@ -133,7 +124,7 @@ def makeSeveritySet():
                         importantSet.add(str(securityUpdates.Article[i]))
                     elif('Critical' == securityUpdates.Severity[i]):
                         criticalSet.add(str(securityUpdates.Article[i]))
-            
+    multiSeveritySet = importantSet.intersection(criticalSet)
     importantSet = importantSet.difference(criticalSet)
 
 
@@ -261,20 +252,15 @@ def addPatchRow(Classification, guid, kbid, des, etcFlag:bool=False):
             # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
-            downloadLength = len(fileNameTuple)
-            if downloadLength > 0 or isExceptionToInclude(des):
-                tempList.extend([des, len(fileNameTuple)])
-                # 최종행 저장
-                if Classification not in pmsd.totalRowDic:
-                    pmsd.totalRowDic[Classification] = {}
-                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                    pmsd.totalRowDic[Classification][regexDic['group']] = []
-                tempList.extend(korList + enuList)
-                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
-                return
-            else:
-                removeList.append([guid, kbid, des])
-                return
+            tempList.extend([des, len(fileNameTuple)])
+            # 최종행 저장
+            if Classification not in pmsd.totalRowDic:
+                pmsd.totalRowDic[Classification] = {}
+            if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                pmsd.totalRowDic[Classification][regexDic['group']] = []
+            tempList.extend(korList + enuList)
+            pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+            return
         else:
             undecidedList.append([guid, kbid, des])
             return
@@ -301,7 +287,7 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False,
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
             downloadLength = len(fileNameTuple)
-            if downloadLength > 0 or isExceptionToInclude(des):
+            if downloadLength > 0:
                 for i in range(len(fileNameTuple)):
                     copyList = tempList.copy()
                     # 확인용 데이터 추가(패치항목, 다운로드 파일 수)
@@ -333,15 +319,14 @@ def addPatchRowForMultiFile(Classification, guid, kbid, des, etcFlag:bool=False,
                     copyList.extend(korList + enuList)
                     pmsd.totalRowDic[Classification][regexDic['group']].append(copyList)
             else:
-                removeList.append([guid, kbid, des])
-                # tempList.extend([des, 0])
-                # # 최종행 저장
-                # if Classification not in pmsd.totalRowDic:
-                #     pmsd.totalRowDic[Classification] = {}
-                # if regexDic['group'] not in pmsd.totalRowDic[Classification]:
-                #     pmsd.totalRowDic[Classification][regexDic['group']] = []
-                # tempList.extend(korList + enuList)
-                # pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
+                tempList.extend([des, 0])
+                # 최종행 저장
+                if Classification not in pmsd.totalRowDic:
+                    pmsd.totalRowDic[Classification] = {}
+                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                    pmsd.totalRowDic[Classification][regexDic['group']] = []
+                tempList.extend(korList + enuList)
+                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
             return
         else:
             undecidedList.append([guid, kbid, des])
@@ -365,7 +350,7 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
             downloadInfo = getDownloadInfo(guid)
             fileNameTuple = downloadInfo['fileNameTuple']
             downloadLength = len(fileNameTuple)
-            if downloadLength > 0 or isExceptionToInclude(des):
+            if downloadLength > 0:
                 for fileName in fileNameTuple:
                     for one in regexDic['fileName']:
                         fileNamePattern = re.compile(one['regex'])
@@ -392,7 +377,14 @@ def addPatchRowByFileName(Classification, guid, kbid, des):
                             flag = True
                             break
             else:
-                removeList.append([guid, kbid, des])
+                tempList.extend([des, 0])
+                # 최종행 저장
+                if Classification not in pmsd.totalRowDic:
+                    pmsd.totalRowDic[Classification] = {}
+                if regexDic['group'] not in pmsd.totalRowDic[Classification]:
+                    pmsd.totalRowDic[Classification][regexDic['group']] = []
+                tempList.extend(korList + enuList)
+                pmsd.totalRowDic[Classification][regexDic['group']].append(tempList)
                 return
         else:
             undecidedList.append([guid, kbid, des])
@@ -498,6 +490,8 @@ def createMSPatchRows(patchList):
                 if validatePatchInfo(patchList.GUID[i], patchList.KBID[i], patchList.Des[i]):
                     createMSPatchRowsByType(patchList.GUID[i], str(int(patchList.KBID[i])), patchList.Des[i])
                     newPatchList.append(patchList.GUID[i]+'\t'+str(int(patchList.KBID[i]))+'\n')
+                    if str(int(patchList.KBID[i])) in multiSeveritySet:
+                        multiSeverityForPatchTargetSet.add(str(int(patchList.KBID[i])))
         except ValueError as e: # 날짜영역에 문자열이 들어있는 경우
             # print('ValueError : ' ,e)
             None
@@ -647,6 +641,12 @@ def writePatchListToExcel():
         file_ver_history_ws.append([])
         file_ver_history_ws.append([])
         fileVerHistoryRowCount += len(list) + 2
+    
+    multi_severity_ws = wb.create_sheet()
+    multi_severity_ws.title = 'multi_severity'
+    for one in multiSeverityForPatchTargetSet:
+        multi_severity_ws.append([one])
+
 
     xlsxPath = './' + workDate.strftime('%Y_%m_%d') + '_Auto_Patch.xlsx'
     # DEFAULT_FONT.name = '굴림체'
