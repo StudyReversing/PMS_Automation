@@ -226,7 +226,7 @@ totalRegexDic = {
         },
         {
             'regex' : 'x64 기반 시스템용 Windows Server 2012에 대한 서비스 스택',
-            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	Windows 2012_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 212	#gi#	#ki#	9	W212		#df1#	Windows 2012_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8-RT-KB#ki#-x64-KOR.msu	1				',
             'descriptionInEnglish' : 'Windows Server 2012_x64 Servicing stack update',
             'group' : 1
         },
@@ -238,7 +238,7 @@ totalRegexDic = {
         },
         {
             'regex' : 'x64 기반 시스템용 Windows Server 2012 R2에 대한 서비스 스택',
-            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	Windows 2012R2_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1	 /quiet /norestart	!pass!		',
+            'excel' : '	Q#ki# 212R2	#gi#	#ki#	9	W212R2		#df1#	Windows 2012R2_x64 서비스 스택 업데이트	http://support.microsoft.com/kb/#ki#	#s#	0	Microsoft			1	Windows8.1-KB#ki#-x64-KOR.msu	1				',
             'descriptionInEnglish' : 'Windows Server 2012R2_x64 Servicing stack update',
             'group' : 1
         },
